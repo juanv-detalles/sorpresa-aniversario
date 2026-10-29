@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Fecha Especial ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Librería externa para la lluvia de corazones reales -->
+    <script src="https://jsdelivr.net"></script>
+</head>
+<body>
+
+    <!-- PANTALLA 1: CONFIGURACIÓN (Modo Creador) -->
+    <div id="pantalla-config" class="contenedor">
+        <h2>Configura tu Sorpresa Especial 🛠️</h2>
+        <p>Escribe los datos para tu persona favorita:</p>
+        
+        <label>Fecha de aniversario (Día / Mes / Año):</label>
+        <div class="fecha-custom-grid">
+            <input type="number" id="config-dia" placeholder="DD" min="1" max="31">
+            <select id="config-mes">
+                <option value="01">Enero</option>
+                <option value="02">Febrero</option>
+                <option value="03">Marzo</option>
+                <option value="04">Abril</option>
+                <option value="05">Mayo</option>
+                <option value="06">Junio</option>
+                <option value="07">Julio</option>
+                <option value="08">Agosto</option>
+                <option value="09">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+            </select>
+            <input type="number" id="config-anio" placeholder="AAAA" min="1900" max="2100">
+        </div>
+
+        <label>Tu Nombre (Aparecerá en el Att:):</label>
+        <input type="text" id="config-nombre" placeholder="Escribe tu nombre aquí...">
+
+        <button id="btn-generar">Generar Sorpresa y Compartir ✨</button>
+    </div>
+
+    <!-- PANTALLA INTERMEDIA: COMPARTIR EL LINK -->
+    <div id="pantalla-compartir" class="contenedor oculto">
+        <h2>¡Tu sorpresa está lista! 🎉</h2>
+        <p>Copia el siguiente enlace y envíaselo a tu pareja por WhatsApp:</p>
+        <button id="btn-copiar-link">Copiar Enlace Romántico 📋</button>
+        <p id="copiado-aviso" class="aviso-exito oculto">¡Enlace copiado al portapapeles!</p>
+    </div>
+
+    <!-- PANTALLA 2: VALIDACIÓN (Para quien recibe la sorpresa) -->
+    <div id="pantalla-validar" class="contenedor oculto">
+        <h2>Tengo una sorpresa para ti... 🎁</h2>
+        <p>Introduce la fecha en la que empezamos a estar juntos:</p>
+        <div class="fecha-custom-grid">
+            <input type="number" id="adivinar-dia" placeholder="DD" min="1" max="31">
+            <select id="adivinar-mes">
+                <option value="01">Enero</option>
+                <option value="02">Febrero</option>
+                <option value="03">Marzo</option>
+                <option value="04">Abril</option>
+                <option value="05">Mayo</option>
+                <option value="06">Junio</option>
+                <option value="07">Julio</option>
+                <option value="08">Agosto</option>
+                <option value="09">Septiembre</option>
+                <option value="10">Octubre</option>
+                <option value="11">Noviembre</option>
+                <option value="12">Diciembre</option>
+            </select>
+            <input type="number" id="adivinar-anio" placeholder="AAAA" min="1900" max="2100">
+        </div>
+        <button id="btn-verificar">Verificar Fecha ❤️</button>
+        <p id="error-mensaje" class="error oculto">¡Fecha incorrecta! Inténtalo de nuevo... 🥺</p>
+    </div>
+
+    <!-- PANTALLA 3: LA SORPRESA -->
+    <div id="pantalla-sorpresa" class="contenedor oculto">
+        <div class="carta">
+            <p id="texto-carta"></p>
+            <p class="despedida">Att: <span id="remitente-carta"></span></p>
+        </div>
+        
+        <!-- Botón llamativo con animación de pulso guía -->
+        <button id="btn-continuar" class="btn-guia oculto">Ver Álbum Sorpresa ➡️</button>
+
+        <!-- Galería interna oculta y contenedor del Collage -->
+        <div id="fotos-finales-grid" class="oculto"></div>
+        <div id="galeria-fotos" class="galeria oculto">
+            <h3>Nuestros Momentos Juntos 📸</h3>
+            <div id="heart-collage" class="heart-grid"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

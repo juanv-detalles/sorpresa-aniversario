@@ -1,0 +1,143 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #ffe6e6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.contenedor {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+}
+
+.oculto {
+    display: none !important;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #cc0052;
+    text-align: left;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border-radius: 8px;
+    border: 1px solid #ffb3cc;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.fecha-custom-grid {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.fecha-custom-grid input, .fecha-custom-grid select {
+    margin-top: 0;
+}
+
+button {
+    background-color: #ff4d79;
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #e60040;
+}
+
+/* Animación de pulso continuo para guiar la interacción */
+@keyframes pulsoGuia {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 121, 0.7); }
+    70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 77, 121, 0); }
+    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 121, 0); }
+}
+
+.btn-guia {
+    background-color: #ff1a53;
+    animation: pulsoGuia 2s infinite;
+    font-size: 18px;
+    padding: 15px;
+}
+
+.carta {
+    background: #fff9fa;
+    border-left: 5px solid #ff4d79;
+    padding: 25px;
+    text-align: left;
+    white-space: pre-wrap;
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.6;
+    border-radius: 4px;
+    max-height: 350px;
+    overflow-y: auto;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+}
+
+.despedida {
+    margin-top: 20px;
+    font-weight: bold;
+    text-align: right;
+    color: #cc0052;
+    font-family: 'Georgia', serif;
+    font-size: 1.1em;
+}
+
+.error { color: #cc0000; font-weight: bold; margin-top: 10px; }
+.aviso-exito { color: green; font-weight: bold; margin-top: 10px; }
+
+.galeria {
+    margin-top: 25px;
+    border-top: 2px dashed #ffb3cc;
+    padding-top: 20px;
+}
+
+.galeria h3 { color: #cc0052; margin-bottom: 20px; }
+
+/* Rejilla para formar la silueta exacta del corazón (Mapeo 5x5) */
+.heart-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px;
+    max-width: 380px;
+    margin: 0 auto;
+}
+
+.cell-heart img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid white;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.cell-heart.visible img {
+    opacity: 1;
+    transform: scale(1);
+}

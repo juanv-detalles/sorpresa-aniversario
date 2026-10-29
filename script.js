@@ -1,7 +1,7 @@
 // ==========================================
 // 1. TU DEDICATORIA PERFECTA Y EXTENSA
 // ==========================================
-const mensajePredeterminado = `💛🌻 ¡PARA LA PERSONA MÁS ESPECIAL DEL MUNDO! 🌻💛
+const mensajePredeterminado = `💛 ¡PARA LA PERSONA MÁS ESPECIAL DEL MUNDO! 💛
 
 ✨ ¡Felicidades! Si lograste entrar aquí es porque recordabas con exactitud esa fecha tan nuestra... Esa fecha mágica que marcó un antes y un después definitivo en nuestras vidas. Fue el día exacto en que nuestros caminos se cruzaron, el instante en que todo comenzó y en el que decidimos, con toda la ilusión del universo, empezar a escribir nuestra propia historia de amor de la mano. ✨
 
@@ -26,7 +26,7 @@ const pantallaValidar = document.getElementById('pantalla-validar');
 const pantallaSorpresa = document.getElementById('pantalla-sorpresa');
 
 // ==========================================
-// 2. PASO 1: GENERAR LINK ENCRIPTADO CORTO
+// 2. PASO 1: GENERAR LINK ENCRIPTADO (MÉTODO ULTRA COMPATIBLE)
 // ==========================================
 document.getElementById('btn-generar').addEventListener('click', () => {
     const dia = document.getElementById('config-dia').value;
@@ -40,7 +40,11 @@ document.getElementById('btn-generar').addEventListener('click', () => {
     }
 
     const payload = { f: `${dia}-${mes}-${anio}`, n: nombre };
-    const hashConfig = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+    
+    // Método moderno compatible con emojis y caracteres latinos
+    const jsonStr = JSON.stringify(payload);
+    const hashConfig = btoa(encodeURIComponent(jsonStr).replace(/%([0-7]['0-9A-F])/g, (match, p1) => String.fromCharCode(parseInt(p1, 16))));
+    
     const linkFinal = `${window.location.origin}${window.location.pathname}?s=${hashConfig}`;
 
     pantallaConfig.classList.add('oculto');
@@ -64,7 +68,8 @@ if (datosSorpresaCargados) {
     pantallaConfig.classList.add('oculto');
     pantallaValidar.classList.remove('oculto');
     try {
-        configuracionRecibida = JSON.parse(decodeURIComponent(escape(atob(datosSorpresaCargados))));
+        const decodedStr = atob(datosSorpresaCargados).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('');
+        configuracionRecibida = JSON.parse(decodeURIComponent(decodedStr));
     } catch(e) {
         alert("El enlace compartido no es válido.");
     }
@@ -88,7 +93,7 @@ document.getElementById('btn-verificar').addEventListener('click', () => {
 
         document.getElementById('remitente-carta').textContent = configuracionRecibida.n;
 
-        // Lluvia instantánea de corazones geométricos reales al visualizar la dedicatoria
+        // Lluvia instantánea de corazones
         lanzarLluviaCorazones();
 
         // Efecto máquina de escribir palabra por palabra (velocidad: 180ms)
@@ -183,3 +188,5 @@ function lanzarLluviaCorazones() {
         confetti({ particleCount: 2, angle: 60, spread: 55, origin: { x: 0, y: 0.8 }, shapes: [corazonIcono], scalar });
         confetti({ particleCount: 2, angle: 120, spread: 55, origin: { x: 1, y: 0.8 }, shapes: [corazonIcono], scalar });
         if (Date.now() < fin) requestAnimationFrame(frame);
+    }());
+}

@@ -26,7 +26,7 @@ const pantallaValidar = document.getElementById('pantalla-validar');
 const pantallaSorpresa = document.getElementById('pantalla-sorpresa');
 
 // ==========================================
-// 2. PASO 1: GENERAR LINK ENCRIPTADO (MÉTODO ULTRA COMPATIBLE)
+// 2. PASO 1: GENERAR LINK DE FORMA DIRECTA Y SEGURA
 // ==========================================
 document.getElementById('btn-generar').addEventListener('click', () => {
     const dia = document.getElementById('config-dia').value;
@@ -39,13 +39,9 @@ document.getElementById('btn-generar').addEventListener('click', () => {
         return;
     }
 
-    const payload = { f: `${dia}-${mes}-${anio}`, n: nombre };
-    
-    // Método moderno compatible con emojis y caracteres latinos
-    const jsonStr = JSON.stringify(payload);
-    const hashConfig = btoa(encodeURIComponent(jsonStr).replace(/%([0-7]['0-9A-F])/g, (match, p1) => String.fromCharCode(parseInt(p1, 16))));
-    
-    const linkFinal = `${window.location.origin}${window.location.pathname}?s=${hashConfig}`;
+    // Usamos encodeURIComponent de forma directa sin btoa para evitar bloqueos
+    const fechaFinal = `${dia}-${mes}-${anio}`;
+    const linkFinal = `${window.location.origin}${window.location.pathname}?f=${encodeURIComponent(fechaFinal)}&n=${encodeURIComponent(nombre)}`;
 
     pantallaConfig.classList.add('oculto');
     pantallaCompartir.classList.remove('oculto');
@@ -61,22 +57,16 @@ document.getElementById('btn-generar').addEventListener('click', () => {
 // 3. PASO 2: COMPROBAR URL AL ABRIR LA PÁGINA
 // ==========================================
 const parametrosUrl = new URLSearchParams(window.location.search);
-const datosSorpresaCargados = parametrosUrl.get('s');
-let configuracionRecibida = null;
+const fechaCargada = parametrosUrl.get('f');
+const nombreCargado = parametrosUrl.get('n');
 
-if (datosSorpresaCargados) {
+if (fechaCargada && nombreCargado) {
     pantallaConfig.classList.add('oculto');
     pantallaValidar.classList.remove('oculto');
-    try {
-        const decodedStr = atob(datosSorpresaCargados).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join('');
-        configuracionRecibida = JSON.parse(decodeURIComponent(decodedStr));
-    } catch(e) {
-        alert("El enlace compartido no es válido.");
-    }
 }
 
 // ==========================================
-// 4. PASO 3: VALIDACIÓN DE FECHA Y LLUVIA INSTANTÁNEA
+// 4. PASO 3: VALIDACIÓN DE FECHA POR LA PAREJA
 // ==========================================
 document.getElementById('btn-verificar').addEventListener('click', () => {
     const dia = document.getElementById('adivinar-dia').value;
@@ -84,20 +74,18 @@ document.getElementById('btn-verificar').addEventListener('click', () => {
     const anio = document.getElementById('adivinar-anio').value;
     const fechaIntento = `${dia}-${mes}-${anio}`;
 
-    if (!configuracionRecibida) return;
-
-    if (fechaIntento === configuracionRecibida.f) {
+    if (fechaIntento === decodeURIComponent(fechaCargada)) {
         document.getElementById('error-mensaje').classList.add('oculto');
         pantallaValidar.classList.add('oculto');
         pantallaSorpresa.classList.remove('oculto');
 
-        document.getElementById('remitente-carta').textContent = configuracionRecibida.n;
+        document.getElementById('remitente-carta').textContent = decodeURIComponent(nombreCargado);
 
         // Lluvia instantánea de corazones
         lanzarLluviaCorazones();
 
-        // Efecto máquina de escribir palabra por palabra (velocidad: 180ms)
-        mostrarTextoPalabraPorPalabra(mensajePredeterminado, 'texto-carta', 180);
+        // Efecto máquina de escribir palabra por palabra (velocidad: 120ms para que sea fluido)
+        mostrarTextoPalabraPorPalabra(mensajePredeterminado, 'texto-carta', 120);
 
         // Inyección estática de URLs de imágenes optimizadas de internet
         const gridFinal = document.getElementById('fotos-finales-grid');
@@ -134,7 +122,6 @@ function mostrarTextoPalabraPorPalabra(texto, elementoId, velocidad) {
             cartaContenedor.scrollTop = cartaContenedor.scrollHeight;
             setTimeout(agregarPalabra, velocidad);
         } else {
-            // El botón Continuar aparece guiado exactamente al finalizar la lectura
             document.getElementById('btn-continuar').classList.remove('oculto');
         }
     }
@@ -171,7 +158,6 @@ document.getElementById('btn-continuar').addEventListener('click', () => {
         cell.appendChild(imgClone);
         collage.appendChild(cell);
 
-        // Revelado paulatino imagen por imagen con transición suave
         setTimeout(() => {
             cell.classList.add('visible');
         }, index * 400);

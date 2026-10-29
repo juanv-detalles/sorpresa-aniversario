@@ -12,7 +12,7 @@ const btnGenerar = document.getElementById('btn-generar');
 const btnVerificar = document.getElementById('btn-verificar');
 const btnContinuar = document.getElementById('btn-continuar');
 
-// PASO 1: GENERAR LINK CORTO
+// PASO 1: GENERAR LINK CORTO (CON CORRECCIÓN DE SINTAXIS)
 if (btnGenerar) {
     btnGenerar.addEventListener('click', () => {
         const dia = document.getElementById('config-dia').value;
@@ -122,7 +122,7 @@ function mostrarTextoPalabraPorPalabra(texto, elementoId, velocidad) {
             if (cartaContenedor) cartaContenedor.scrollTop = cartaContenedor.scrollHeight;
             setTimeout(agregarPalabra, velocidad);
         } else {
-            // CUANDO TERMINA LA DEDICATORIA: Se revela la firma al final de todo de forma suave
+            // CUANDO TERMINA LA DEDICATORIA: Se revela la firma al final suavemente
             const despedidaContenedor = document.querySelector('.despedida');
             if (despedidaContenedor) {
                 despedidaContenedor.style.transition = "opacity 1s ease";

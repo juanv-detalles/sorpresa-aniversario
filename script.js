@@ -1,6 +1,3 @@
-// ==========================================
-// 1. TU DEDICATORIA PERFECTA Y EXTENSA
-// ==========================================
 const mensajePredeterminado = `💛 ¡PARA LA PERSONA MÁS ESPECIAL DEL MUNDO! 💛
 
 ✨ ¡Felicidades! Si lograste entrar aquí es porque recordabas con exactitud esa fecha tan nuestra... Esa fecha mágica que marcó un antes y un después definitivo en nuestras vidas. Fue el día exacto en que nuestros caminos se cruzaron, el instante en que todo comenzó y en el que decidimos, con toda la ilusión del universo, empezar a escribir nuestra propia historia de amor de la mano. ✨
@@ -20,96 +17,100 @@ Eres mi persona favorita, mi refugio seguro contra todo lo malo, mi paz en medio
 
 Te amo con todas las fuerzas de mi alma, hoy, mañana y para toda la eternidad. ✨🌌`;
 
+// Inicialización segura de elementos de la interfaz
 const pantallaConfig = document.getElementById('pantalla-config');
 const pantallaCompartir = document.getElementById('pantalla-compartir');
 const pantallaValidar = document.getElementById('pantalla-validar');
 const pantallaSorpresa = document.getElementById('pantalla-sorpresa');
+const btnGenerar = document.getElementById('btn-generar');
+const btnVerificar = document.getElementById('btn-verificar');
+const btnContinuar = document.getElementById('btn-continuar');
 
-// ==========================================
-// 2. PASO 1: GENERAR LINK DE FORMA DIRECTA Y SEGURA
-// ==========================================
-document.getElementById('btn-generar').addEventListener('click', () => {
-    const dia = document.getElementById('config-dia').value;
-    const mes = document.getElementById('config-mes').value;
-    const anio = document.getElementById('config-anio').value;
-    const nombre = document.getElementById('config-nombre').value;
+// PASO 1: GENERAR LINK DE FORMA SECO
+if (btnGenerar) {
+    btnGenerar.addEventListener('click', () => {
+        const dia = document.getElementById('config-dia').value;
+        const mes = document.getElementById('config-mes').value;
+        const anio = document.getElementById('config-anio').value;
+        const nombre = document.getElementById('config-nombre').value;
 
-    if (!dia || !mes || !anio || !nombre) {
-        alert("Por favor rellena la fecha completa y tu nombre.");
-        return;
-    }
+        if (!dia || !mes || !anio || !nombre) {
+            alert("Por favor rellena la fecha completa y tu nombre.");
+            return;
+        }
 
-    // Usamos encodeURIComponent de forma directa sin btoa para evitar bloqueos
-    const fechaFinal = `${dia}-${mes}-${anio}`;
-    const linkFinal = `${window.location.origin}${window.location.pathname}?f=${encodeURIComponent(fechaFinal)}&n=${encodeURIComponent(nombre)}`;
+        const fechaFinal = `${dia}-${mes}-${anio}`;
+        const linkFinal = `${window.location.origin}${window.location.pathname}?f=${encodeURIComponent(fechaFinal)}&n=${encodeURIComponent(nombre)}`;
 
-    pantallaConfig.classList.add('oculto');
-    pantallaCompartir.classList.remove('oculto');
+        if (pantallaConfig) pantallaConfig.classList.add('oculto');
+        if (pantallaCompartir) pantallaCompartir.classList.remove('oculto');
 
-    document.getElementById('btn-copiar-link').onclick = function() {
-        navigator.clipboard.writeText(linkFinal).then(() => {
-            document.getElementById('copiado-aviso').classList.remove('oculto');
-        });
-    };
-});
+        const btnCopiar = document.getElementById('btn-copiar-link');
+        if (btnCopiar) {
+            btnCopiar.onclick = function() {
+                navigator.clipboard.writeText(linkFinal).then(() => {
+                    const aviso = document.getElementById('copiado-aviso');
+                    if (aviso) aviso.classList.remove('oculto');
+                });
+            };
+        }
+    });
+}
 
-// ==========================================
-// 3. PASO 2: COMPROBAR URL AL ABRIR LA PÁGINA
-// ==========================================
+// PASO 2: LEER PARÁMETROS DE LA URL
 const parametrosUrl = new URLSearchParams(window.location.search);
 const fechaCargada = parametrosUrl.get('f');
 const nombreCargado = parametrosUrl.get('n');
 
 if (fechaCargada && nombreCargado) {
-    pantallaConfig.classList.add('oculto');
-    pantallaValidar.classList.remove('oculto');
+    if (pantallaConfig) pantallaConfig.classList.add('oculto');
+    if (pantallaValidar) pantallaValidar.classList.remove('oculto');
 }
 
-// ==========================================
-// 4. PASO 3: VALIDACIÓN DE FECHA POR LA PAREJA
-// ==========================================
-document.getElementById('btn-verificar').addEventListener('click', () => {
-    const dia = document.getElementById('adivinar-dia').value;
-    const mes = document.getElementById('adivinar-mes').value;
-    const anio = document.getElementById('adivinar-anio').value;
-    const fechaIntento = `${dia}-${mes}-${anio}`;
+// PASO 3: VALIDACIÓN DE LA FECHA POR LA PAREJA
+if (btnVerificar) {
+    btnVerificar.addEventListener('click', () => {
+        const dia = document.getElementById('adivinar-dia').value;
+        const mes = document.getElementById('adivinar-mes').value;
+        const anio = document.getElementById('adivinar-anio').value;
+        const fechaIntento = `${dia}-${mes}-${anio}`;
 
-    if (fechaIntento === decodeURIComponent(fechaCargada)) {
-        document.getElementById('error-mensaje').classList.add('oculto');
-        pantallaValidar.classList.add('oculto');
-        pantallaSorpresa.classList.remove('oculto');
+        if (fechaIntento === decodeURIComponent(fechaCargada)) {
+            const errorMsg = document.getElementById('error-mensaje');
+            if (errorMsg) errorMsg.classList.add('oculto');
+            if (pantallaValidar) pantallaValidar.classList.add('oculto');
+            if (pantallaSorpresa) pantallaSorpresa.classList.remove('oculto');
 
-        document.getElementById('remitente-carta').textContent = decodeURIComponent(nombreCargado);
+            const remitente = document.getElementById('remitente-carta');
+            if (remitente) remitente.textContent = decodeURIComponent(nombreCargado);
 
-        // Lluvia instantánea de corazones
-        lanzarLluviaCorazones();
+            lanzarLluviaCorazones();
+            mostrarTextoPalabraPorPalabra(mensajePredeterminado, 'texto-carta', 120);
 
-        // Efecto máquina de escribir palabra por palabra (velocidad: 120ms para que sea fluido)
-        mostrarTextoPalabraPorPalabra(mensajePredeterminado, 'texto-carta', 120);
+            const gridFinal = document.getElementById('fotos-finales-grid');
+            if (gridFinal) {
+                gridFinal.innerHTML = `
+                    <img src="https://unsplash.com">
+                    <img src="https://unsplash.com">
+                    <img src="https://unsplash.com">
+                    <img src="https://unsplash.com">
+                    <img src="https://unsplash.com">
+                    <img src="https://unsplash.com">
+                    <img src="https://unsplash.com">
+                    <img src="https://unsplash.com">
+                    <img src="https://unsplash.com">
+                `;
+            }
+        } else {
+            const errorMsg = document.getElementById('error-mensaje');
+            if (errorMsg) errorMsg.classList.remove('oculto');
+        }
+    });
+}
 
-        // Inyección estática de URLs de imágenes optimizadas de internet
-        const gridFinal = document.getElementById('fotos-finales-grid');
-        gridFinal.innerHTML = `
-            <img src="https://unsplash.com">
-            <img src="https://unsplash.com">
-            <img src="https://unsplash.com">
-            <img src="https://unsplash.com">
-            <img src="https://unsplash.com">
-            <img src="https://unsplash.com">
-            <img src="https://unsplash.com">
-            <img src="https://unsplash.com">
-            <img src="https://unsplash.com">
-        `;
-    } else {
-        document.getElementById('error-mensaje').classList.remove('oculto');
-    }
-});
-
-// ==========================================
-// 5. FUNCIÓN: LÓGICA MÁQUINA DE ESCRIBIR
-// ==========================================
 function mostrarTextoPalabraPorPalabra(texto, elementoId, velocidad) {
     const contenedor = document.getElementById(elementoId);
+    if (!contenedor) return;
     const palabras = texto.split(/(\s+)/); 
     let i = 0;
     contenedor.textContent = "";
@@ -119,50 +120,50 @@ function mostrarTextoPalabraPorPalabra(texto, elementoId, velocidad) {
             contenedor.textContent += palabras[i];
             i++;
             const cartaContenedor = document.querySelector('.carta');
-            cartaContenedor.scrollTop = cartaContenedor.scrollHeight;
+            if (cartaContenedor) cartaContenedor.scrollTop = cartaContenedor.scrollHeight;
             setTimeout(agregarPalabra, velocidad);
         } else {
-            document.getElementById('btn-continuar').classList.remove('oculto');
+            if (btnContinuar) btnContinuar.classList.remove('oculto');
         }
     }
     agregarPalabra();
 }
 
-// ==========================================
-// 6. PASO 4: ARMAR COLLAGE DE CORAZÓN IMAGEN POR IMAGEN
-// ==========================================
-document.getElementById('btn-continuar').addEventListener('click', () => {
-    document.getElementById('galeria-fotos').classList.remove('oculto');
-    document.getElementById('btn-continuar').classList.add('oculto');
+if (btnContinuar) {
+    btnContinuar.addEventListener('click', () => {
+        const galeria = document.getElementById('galeria-fotos');
+        if (galeria) galeria.classList.remove('oculto');
+        btnContinuar.classList.add('oculto');
 
-    const coordenadasCorazon = [
-        {r:1, c:2}, {r:1, c:4},
-        {r:2, c:1}, {r:2, c:2}, {r:2, c:3}, {r:2, c:4}, {r:2, c:5},
-        {r:3, c:2}, {r:3, c:3}, {r:3, c:4},
-        {r:4, c:3}
-    ];
+        const coordenadasCorazon = [
+            {r:1, c:2}, {r:1, c:4},
+            {r:2, c:1}, {r:2, c:2}, {r:2, c:3}, {r:2, c:4}, {r:2, c:5},
+            {r:3, c:2}, {r:3, c:3}, {r:3, c:4},
+            {r:4, c:3}
+        ];
 
-    const collage = document.getElementById('heart-collage');
-    const imagenes = document.querySelectorAll('#fotos-finales-grid img');
-    collage.innerHTML = "";
+        const collage = document.getElementById('heart-collage');
+        const imagenes = document.querySelectorAll('#fotos-finales-grid img');
+        if (collage) collage.innerHTML = "";
 
-    coordenadasCorazon.forEach((pos, index) => {
-        if (index >= imagenes.length) return;
+        coordenadasCorazon.forEach((pos, index) => {
+            if (index >= imagenes.length) return;
 
-        const cell = document.createElement('div');
-        cell.className = "cell-heart";
-        cell.style.gridRowStart = pos.r;
-        cell.style.gridColumnStart = pos.c;
+            const cell = document.createElement('div');
+            cell.className = "cell-heart";
+            cell.style.gridRowStart = pos.r;
+            cell.style.gridColumnStart = pos.c;
 
-        const imgClone = imagenes[index].cloneNode(true);
-        cell.appendChild(imgClone);
-        collage.appendChild(cell);
+            const imgClone = imagenes[index].cloneNode(true);
+            cell.appendChild(imgClone);
+            if (collage) collage.appendChild(cell);
 
-        setTimeout(() => {
-            cell.classList.add('visible');
-        }, index * 400);
+            setTimeout(() => {
+                cell.classList.add('visible');
+            }, index * 400);
+        });
     });
-});
+}
 
 function lanzarLluviaCorazones() {
     const scalar = 3;

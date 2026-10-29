@@ -1,7 +1,7 @@
 // ==========================================
 // 1. TU DEDICATORIA ROMÁNTICA DE ANIVERSARIO
 // ==========================================
-const mensajePredeterminado = `❤️🌹 ¡PARA LA PERSONA MÁS ESPECIAL DEL MUNDO! 🌹❤️<br><br>✨ ¡Felicidades! Si lograste entrar aquí es porque recordabas con exactitud esa fecha tan nuestra... Esa fecha mágica que marcó un antes y un después definitivo en nuestras vidas. Fue el día exacto en que nuestros caminos se cruzaron, el instante en que todo comenzó y en el que decidimos, con toda la ilusión del universo, empezar a escribir nuestra propia historia de amor de la mano. ✨<br><br>Mirar atrás y recordar ese momento me llena de una alegría inmensa, because entendí que fue el inicio del viaje más maravilloso, loco y bonito de toda mi vida. 🥹❤️<br><br>Quiero aprovechar esta pequeña gran sorpresa para recordarte lo muchísimo que significas para mí y el lugar tan sagrado que ocupas en mis días. A veces el tiempo avanza muy rápido, pero hoy me detengo para decirte lo que dicta mi corazón: ¡GRACIAS!<br><br>❤️ Gracias por cada sonrisa compartida.<br>❤️ Gracias por cada abrazo sincero en los momentos en que más lo necesitaba.<br>❤️ Gracias por tu paciencia infinita, tu ternura y el hermoso regalo de tu presencia.<br>❤️ Gracias por hacer que mi mundo sea un lugar brillante, feliz y lleno de paz.<br><br>Cada detalle tuyo, cada conversación nocturna y cada segundo a tu lado es un tesoro invaluable que guardo bajo llave en lo más profundo de mi ser. No cambiaría por nada de este planeta absolutamente nada de lo que hemos construido juntos: las risas cómplices, las metas que planeamos en voz alta, las pequeñas locuras y esa hermosa conexión que solo nosotros dos entendemos. Me fascina ver cómo crecemos juntos y cómo nos apoyamos en cada paso que damos.<br><br>Eres mi persona favorita, mi refugio seguro contra todo lo malo, mi paz en medio de la tormenta, mi complemento perfecto y la razón de mis sonrisas más honestas y transparentes. Gracias por ser tú, por no rendirte y por enseñarme lo hermoso que es amar y ser amado sin condiciones. 🧸💞<br><br>Te amo con todas las fuerzas de mi alma, hoy, mañana y para toda la eternidad. ✨🌌`;
+const mensajePredeterminado = `❤️🌹 ¡PARA LA PERSONA MÁS ESPECIAL DEL MUNDO! 🌹❤️<br><br>✨ ¡Felicidades! Si lograste entrar aquí es porque recordabas con exactitud esa fecha tan nuestra... Esa fecha mítica que marcó un antes y un después definitivo en nuestras vidas. Fue el día exacto en que nuestros caminos se cruzaron, el instante en que todo comenzó y en el que decidimos, con toda la ilusión del universo, empezar a escribir nuestra propia historia de amor de la mano. ✨<br><br>Mirar atrás y recordar ese momento me llena de una alegría inmensa, porque entendí que fue el inicio del viaje más maravilloso, loco y bonito de toda mi vida. 🥹❤️<br><br>Quiero aprovechar esta pequeña gran sorpresa para recordarte lo muchísimo que significas para mí y el lugar tan sagrado que ocupas en mis días. A veces el tiempo avanza muy rápido, pero hoy me detengo para decirte lo que dicta mi corazón: ¡GRACIAS!<br><br>❤️ Gracias por cada sonrisa compartida.<br>❤️ Gracias por cada abrazo sincero en los momentos en que más lo necesitaba.<br>❤️ Gracias por tu paciencia infinita, tu ternura y el hermoso regalo de tu presencia.<br>❤️ Gracias por hacer que mi mundo sea un lugar brillante, feliz y lleno de paz.<br><br>Cada detalle tuyo, cada conversación nocturna y cada segundo a tu lado es un tesoro invaluable que guardo bajo llave en lo más profundo de mi ser. No cambiaría por nada de este planeta absolutamente nada de lo que hemos construido juntos: las risas cómplices, las metas que planeamos en voz alta, las pequeñas locuras y esa hermosa conexión que solo nosotros dos entendemos. Me fascina ver cómo crecemos juntos y cómo nos apoyamos en cada paso que damos.<br><br>Eres mi persona favorita, mi refugio seguro contra todo lo malo, mi paz en medio de la tormenta, mi complemento perfecto y la razón de mis sonrisas más honestas y transparentes. Gracias por ser tú, por no rendirte y por enseñarme lo hermoso que es amar y ser amado sin condiciones. 🧸💞<br><br>Te amo con todas las fuerzas de mi alma, hoy, mañana y para toda la eternidad. ✨🌌`;
 
 // Elementos globales sincronizados
 const pantallaConfig = document.getElementById('pantalla-config');
@@ -18,7 +18,7 @@ if (btnGenerar) {
         const dia = document.getElementById('config-dia').value;
         const mes = document.getElementById('config-mes').value;
         const anio = document.getElementById('config-anio').value;
-        const nombre = document.getElementById('config-nombre').value; // ID Corregido aquí
+        const nombre = document.getElementById('config-nombre').value;
 
         if (!dia || !mes || !anio || !nombre) {
             alert("Por favor rellena la fecha completa y tu nombre.");
@@ -68,8 +68,8 @@ if (btnVerificar) {
             if (pantallaValidar) pantallaValidar.classList.add('oculto');
             if (pantallaSorpresa) pantallaSorpresa.classList.remove('oculto');
 
-            const despedidaContenedor = document.querySelector('.despedida');
-            if (despedidaContenedor) despedidaContenedor.style.opacity = "0";
+            const 'despedidaContenedor' = document.querySelector('.despedida');
+            if (despedidaContenedor) 'despedidaContenedor'.style.opacity = "0";
 
             const remitente = document.getElementById('remitente-carta');
             if (remitente) remitente.textContent = decodeURIComponent(nombreCargado);

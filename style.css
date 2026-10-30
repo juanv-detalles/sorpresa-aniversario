@@ -1,146 +1,207 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #ffe6e6;
+    background-color: #fffbeb; /* Amarillo crema */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    height: 100vh;
     margin: 0;
-    padding: 20px;
-    box-sizing: border-box;
+    overflow: hidden;
 }
 
-.contenedor {
-    background: white;
+.card {
+    background: #ffffff;
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    max-width: 480px;
+    box-shadow: 0 4px 15px rgba(180, 83, 9, 0.1);
     width: 100%;
+    max-width: 420px;
     text-align: center;
+    border: 1px solid #fef3c7;
+    box-sizing: border-box;
+    transition: all 0.5s ease;
 }
 
-.oculto {
-    display: none;
+h1 {
+    color: #b45309;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.instruccion {
+    color: #78350f;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
 }
 
 label {
     display: block;
-    margin-top: 15px;
+    color: #78350f;
     font-weight: bold;
-    color: #cc0052;
-    text-align: left;
+    margin-bottom: 5px;
+    font-size: 14px;
 }
 
-input, select, button {
+input {
     width: 100%;
-    padding: 12px;
-    margin-top: 8px;
-    border-radius: 8px;
-    border: 1px solid #ffb3cc;
+    padding: 10px;
     box-sizing: border-box;
+    border: 1px solid #fcd34d;
+    border-radius: 8px;
     font-size: 16px;
-}
-
-.fecha-custom-grid {
-    display: flex;
-    gap: 10px;
-    margin-top: 8px;
-}
-
-.fecha-custom-grid input, .fecha-custom-grid select {
-    margin-top: 0;
+    text-align: center;
+    outline: none;
 }
 
 button {
-    background-color: #ff4d79;
-    color: white;
+    background-color: #fbbf24;
+    color: #78350f;
+    font-size: 16px;
     font-weight: bold;
+    padding: 12px 25px;
     border: none;
+    border-radius: 8px;
     cursor: pointer;
-    margin-top: 20px;
-    transition: background 0.3s;
+    transition: background 0.2s, transform 0.1s;
+    width: 100%;
+    margin-top: 10px;
 }
 
 button:hover {
-    background-color: #e60040;
+    background-color: #f59e0b;
 }
 
-@keyframes pulsoGuia {
-    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 121, 0.7); }
-    70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 77, 121, 0); }
-    100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 77, 121, 0); }
+button:active {
+    transform: scale(0.98);
 }
 
-.btn-guia {
-    background-color: #ff1a53;
-    animation: pulsoGuia 2s infinite;
-    font-size: 18px;
-    padding: 15px;
-}
-
-.carta {
-    background: #fff9fa;
-    border-left: 5px solid #ff4d79;
-    padding: 25px;
-    text-align: left;
-    white-space: pre-wrap;
-    font-style: italic;
-    font-size: 15px;
-    line-height: 1.6;
-    border-radius: 4px;
-    max-height: 350px;
-    overflow-y: auto;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
-    color: #000000 !important;
-}
-
-#texto-carta {
-    color: #000000 !important;
-}
-
-.despedida {
+.link-box {
     margin-top: 20px;
-    font-weight: bold;
-    text-align: right;
-    color: #cc0052;
-    font-family: 'Georgia', serif;
-    font-size: 1.1em;
-}
-
-.error { color: #cc0000; font-weight: bold; margin-top: 10px; }
-.aviso-exito { color: green; font-weight: bold; margin-top: 10px; }
-
-.galeria {
-    margin-top: 25px;
-    border-top: 2px dashed #ffb3cc;
-    padding-top: 20px;
-}
-
-.galeria h3 { color: #cc0052; margin-bottom: 20px; }
-
-.heart-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    gap: 8px;
-    max-width: 380px;
-    margin: 0 auto;
-}
-
-.cell-heart img {
-    width: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
+    background: #fef3c7;
+    padding: 15px;
     border-radius: 8px;
-    border: 2px solid white;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.12);
-    opacity: 0;
-    transform: scale(0.5);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    border: 1px dashed #d97706;
 }
 
-.cell-heart.visible img {
-    opacity: 1;
-    transform: scale(1);
+.link-box p {
+    margin: 0 0 10px 0;
+    color: #78350f;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.btn-copy {
+    background-color: #d97706;
+    color: white;
+    font-size: 14px;
+    padding: 8px;
+}
+
+.text-box {
+    margin-top: 20px;
+    background-color: #ffffff;
+    border: 2px dashed #b45309;
+    border-radius: 8px;
+    padding: 20px;
+    min-height: 180px;
+    text-align: left;
+    color: #b45309;
+    font-size: 16px;
+    line-height: 1.6;
+    font-family: 'Courier New', Courier, monospace;
+    white-space: pre-wrap;
+}
+
+/* ==========================================
+   ESTILOS DE LA SORPRESA FINAL
+   ========================================== */
+.pantalla-final {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 1s ease forwards;
+}
+
+.escena-cupido {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Corazón hecho puramente en CSS */
+.corazon-gigante {
+    position: relative;
+    width: 100px;
+    height: 90px;
+    background-color: #ff4d6d;
+    animation: latido 0.8s infinite alternate;
+}
+
+.corazon-gigante:before,
+.corazon-gigante:after {
+    position: absolute;
+    content: "";
+    left: 50px;
+    top: 0;
+    width: 50px;
+    height: 80px;
+    background-color: #ff4d6d;
+    border-radius: 50px 50px 0 0;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+}
+
+.corazon-gigante:after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+}
+
+/* Flecha de Cupido cruzando el corazón */
+.flecha-cupido {
+    position: absolute;
+    font-size: 80px;
+    z-index: 10;
+    transform: rotate(-15deg);
+    animation: flotar 2s ease-in-out infinite;
+}
+
+.texto-final {
+    color: #ff4d6d;
+    font-size: 42px;
+    font-weight: 900;
+    margin-top: 30px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    animation: pulsoTexto 1.5s infinite;
+}
+
+/* Animaciones */
+@keyframes latido {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.25); }
+}
+
+@keyframes flotar {
+    0%, 100% { transform: translate(0, 0) rotate(-15deg); }
+    50% { transform: translate(-5px, -10px) rotate(-10deg); }
+}
+
+@keyframes pulsoTexto {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }

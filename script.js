@@ -1,17 +1,14 @@
 // ==========================================
 // 1. TU DEDICATORIA ROMÁNTICA DE ANIVERSARIO
 // ==========================================
-const mensajePredeterminado = `❤️🌹 ¡PARA LA PERSONA MÁS ESPECIAL DEL MUNDO! 🌹❤️<br><br>✨ ¡Felicidades! Si lograste entrar aquí es porque recordabas con exactitud esa fecha tan nuestra... Esa fecha mágica que marcó un antes y un después definitivo en nuestras vidas. Fue el día exacto en que nuestros caminos se cruzaron, el instante en que todo comenzó y en el que decidimos, con toda la ilusión del universo, empezar a escribir nuestra propia historia de amor de la mano. ✨<br><br>Mirar atrás y recordar ese momento me llena de una alegría inmensa, porque entendí que fue el inicio del viaje más maravilloso, loco y bonito de toda mi vida. 🥹❤️<br><br>Quiero aprovechar esta pequeña gran sorpresa para recordarte lo muchísimo que significas para mí y el lugar tan sagrado que ocupas en mis días. A veces el tiempo avanza muy rápido, pero hoy me detengo para decirte lo que dicta mi corazón: ¡GRACIAS!<br><br>❤️ Gracias por cada sonrisa compartida.<br>❤️ Gracias por cada abrazo sincero en los momentos en que más lo necesitaba.<br>❤️ Gracias por tu paciencia infinita, tu ternura y el hermoso regalo de tu presencia.<br>❤️ Gracias por hacer que mi mundo sea un lugar brillante, feliz y lleno de paz.<br><br>Cada detalle tuyo, cada conversación nocturna y cada segundo a tu lado es un tesoro invaluable que guardo bajo llave en lo más profundo de mi ser. No cambiaría por nada de este planeta absolutamente nada de lo que hemos construido juntos: las risas cómplices, las metas que planeamos en voz alta, las pequeñas locuras y esa hermosa conexión que solo nosotros dos entendemos. Me fascina ver cómo crecemos juntos y cómo nos apoyamos en cada paso que damos.<br><br>Eres mi persona favorita, mi refugio seguro contra todo lo malo, mi paz en medio de la tormenta, mi complemento perfecto y la razón de mis sonrisas más honestas y transparentes. Gracias por ser tú, por no rendirte y por enseñarme lo hermoso que es amar y ser amado sin condiciones. 🧸💞<br><br>Te amo con todas las fuerzas de mi alma, hoy, mañana y para toda la eternidad. ✨🌌`;
+const mensajePredeterminado = `❤️🌹 ¡PARA LA PERSONA MÁS ESPECIAL DEL MUNDO! 🌹❤️<br><br>✨ ¡Felicidades! Si lograste entrar aquí es porque recordabas con exactitud esa fecha tan nuestra... Esa fecha mágica que marcó un antes y un después definitivo en nuestras vidas. Fue el día exacto en que nuestros caminos se cruzaron, el instante en que todo comenzó y en el que decidimos, con toda la ilusión del universo, empezar a escribir nuestra propia historia de amor de la mano. ✨<br><br>Mirar atrás y recordar ese momento me llena de una alegría inmensa, porque entendí que fue el inicio del viaje más maravilloso, loco y bonito de toda mi vida. 🥹❤️<br><br>Quiero aprovechar esta pequeña gran sorpresa para recordarte lo muchísimo que significas para mí y el lugar tan sangrado que ocupas en mis días. A veces el tiempo avanza muy rápido, pero hoy me detengo para decirte lo que dicta mi corazón: ¡GRACIAS!<br><br>❤️ Gracias por cada sonrisa compartida.<br>❤️ Gracias por cada abrazo sincero en los momentos en que más lo necesitaba.<br>❤️ Gracias por tu paciencia infinita, tu ternura y el hermoso regalo de tu presencia.<br>❤️ Gracias por hacer que mi mundo sea un lugar brillante, feliz y lleno de paz.<br><br>Cada detalle tuyo, cada conversación nocturna y cada segundo a tu lado es un tesoro invaluable que guardo bajo llave en lo más profundo de mi ser. No cambiaría por nada de este planeta absolutamente nada de lo que hemos construido juntos: las risas cómplices, las metas que planeamos en voz alta, las pequeñas locuras y esa hermosa conexión que solo nosotros dos entendemos. Me fascina ver cómo crecemos juntos y cómo nos apoyamos en cada paso que damos.<br><br>Eres mi persona favorita, mi refugio seguro contra todo lo malo, mi paz en medio de la tormenta, mi complemento perfecto y la razón de mis sonrisas más honestas y transparentes. Gracias por ser tú, por no rendirte y por enseñarme lo hermoso que es amar y ser amado sin condiciones. 🧸💞<br><br>Te amo con todas las fuerzas de mi alma, hoy, mañana y para toda la eternidad. ✨🌌`;
 
-// Elementos globales de la interfaz
 const pantallaConfig = document.getElementById('pantalla-config');
 const pantallaCompartir = document.getElementById('pantalla-compartir');
 const pantallaValidar = document.getElementById('pantalla-validar');
 const pantallaSorpresa = document.getElementById('pantalla-sorpresa');
 
-// ==========================================
-// 2. PASO 1: GENERAR LINK DE FORMA SEGURA
-// ==========================================
+// PASO 1: GENERAR LINK DE FORMA SEGURA
 const btnGenerar = document.getElementById('btn-generar');
 if (btnGenerar) {
     btnGenerar.onclick = function(e) {
@@ -45,9 +42,7 @@ if (btnGenerar) {
     };
 }
 
-// ==========================================
-// 3. PASO 2: LEER PARÁMETROS DE LA URL
-// ==========================================
+// PASO 2: LEER PARÁMETROS DE LA URL
 const parametrosUrl = new URLSearchParams(window.location.search);
 const fechaCargada = parametrosUrl.get('f');
 const nombreCargado = parametrosUrl.get('n');
@@ -57,9 +52,7 @@ if (fechaCargada && nombreCargado) {
     if (pantallaValidar) pantallaValidar.classList.remove('oculto');
 }
 
-// ==========================================
-// 4. PASO 3: VALIDACIÓN DE LA FECHA POR LA PAREJA
-// ==========================================
+// PASO 3: VALIDACIÓN DE LA FECHA DIRECTA Y SIN ERRORES
 const btnVerificar = document.getElementById('btn-verificar');
 if (btnVerificar) {
     btnVerificar.onclick = function() {
@@ -74,20 +67,22 @@ if (btnVerificar) {
             if (pantallaValidar) pantallaValidar.classList.add('oculto');
             if (pantallaSorpresa) pantallaSorpresa.classList.remove('oculto');
 
-            // Corrección aquí: Ocultamos el bloque de la firma quitando las comillas rotas
-            const despedidaContenedor = document.getElementById('bloque-despedida');
-            if (despedidaContenedor) despedidaContenedor.classList.add('oculto');
+            // Inyectamos el texto directo para evitar que se congele la pantalla
+            const contenedorTexto = document.getElementById('texto-carta');
+            if (contenedorTexto) contenedorTexto.innerHTML = mensajePredeterminado;
 
             const remitente = document.getElementById('remitente-carta');
             if (remitente) remitente.textContent = decodeURIComponent(nombreCargado);
 
-            // Lluvia de corazones automática
-            lanzarLluviaCorazones();
+            // Mostrar firma y botón continuar de golpe de forma segura
+            const despedidaContenedor = document.getElementById('bloque-despedida');
+            if (despedidaContenedor) despedidaContenedor.classList.remove('oculto');
             
-            // Inicia la máquina de escribir palabra por palabra sin errores
-            setTimeout(() => {
-                mostrarTextoPalabraPorPalabra(mensajePredeterminado, 'texto-carta', 100);
-            }, 400);
+            const btnContinuar = document.getElementById('btn-continuar');
+            if (btnContinuar) btnContinuar.classList.remove('oculto');
+
+            // Lluvia inmediata de corazones
+            lanzarLluviaCorazones();
 
             const gridFinal = document.getElementById('fotos-finales-grid');
             if (gridFinal) {
@@ -110,37 +105,7 @@ if (btnVerificar) {
     };
 }
 
-// FUNCIÓN MÁQUINA DE ESCRIBIR ORDENADA
-function mostrarTextoPalabraPorPalabra(texto, elementoId, velocidad) {
-    const contenedor = document.getElementById(elementoId);
-    if (!contenedor) return;
-    const palabras = texto.split(/(\s+|<br><br>|<br>)/); 
-    let i = 0;
-    contenedor.innerHTML = "";
-
-    function agregarPalabra() {
-        if (i < palabras.length) {
-            contenedor.innerHTML += palabras[i];
-            i++;
-            const cartaContenedor = document.querySelector('.carta');
-            if (cartaContenedor) cartaContenedor.scrollTop = cartaContenedor.scrollHeight;
-            setTimeout(agregarPalabra, velocidad);
-        } else {
-            // Revela la firma al finalizar la dedicatoria
-            const despedidaContenedor = document.getElementById('bloque-despedida');
-            if (despedidaContenedor) {
-                despedidaContenedor.classList.remove('oculto');
-                despedidaContenedor.style.transition = "opacity 1s ease";
-                despedidaContenedor.style.opacity = "1";
-            }
-            const btnContinuar = document.getElementById('btn-continuar');
-            if (btnContinuar) btnContinuar.classList.remove('oculto');
-        }
-    }
-    agregarPalabra();
-}
-
-// PASO 4: ARMAR EL ÁLBUM COLLAGE
+// PASO 4: ARMAR EL ÁLBUM COLLAGE EN FORMA DE CORAZÓN
 const btnContinuar = document.getElementById('btn-continuar');
 if (btnContinuar) {
     btnContinuar.onclick = function() {
@@ -180,3 +145,13 @@ if (btnContinuar) {
 
 function lanzarLluviaCorazones() {
     const scalar = 3;
+    const corazonIcono = confetti.shapeFromText({ text: '❤️', scalar });
+    const duracion = 4 * 1000;
+    const fin = Date.now() + duracion;
+
+    (function frame() {
+        confetti({ particleCount: 2, angle: 60, spread: 55, origin: { x: 0, y: 0.8 }, shapes: [corazonIcono], scalar });
+        confetti({ particleCount: 2, angle: 120, spread: 55, origin: { x: 1, y: 0.8 }, shapes: [corazonIcono], scalar });
+        if (Date.now() < fin) requestAnimationFrame(frame);
+    }());
+}

@@ -38,6 +38,12 @@
         <label>Tu Nombre (Aparecerá en el Att:):</label>
         <input type="text" id="config-nombre" placeholder="Escribe tu nombre aquí...">
 
+        <label>Links de tus Fotos Reales (Pega enlaces de internet, ej. Postimages):</label>
+        <input type="url" id="foto-url-1" placeholder="Link de la Foto 1..." style="margin-bottom: 5px;">
+        <input type="url" id="foto-url-2" placeholder="Link de la Foto 2..." style="margin-bottom: 5px;">
+        <input type="url" id="foto-url-3" placeholder="Link de la Foto 3..." style="margin-bottom: 5px;">
+        <input type="url" id="foto-url-4" placeholder="Link de la Foto 4...">
+
         <button id="btn-generar">Generar Sorpresa y Compartir ✨</button>
     </div>
 
@@ -76,20 +82,28 @@
     </div>
 
     <!-- PANTALLA 3: LA SORPRESA -->
-    <div id="pantalla-sorpresa" class="oculto">
-        <div class="contenedor">
-            <div class="carta">
-                <div id="texto-carta"></div>
-                <p class="despedida" id="bloque-despedida">Att: <span id="remitente-carta"></span></p>
-            </div>
-            
-            <button id="btn-continuar" class="btn-guia oculto">Ver Álbum Sorpresa ➡️</button>
+    <div id="pantalla-sorpresa" class="contenedor oculto">
+        <div class="carta">
+            <div id="texto-carta"></div>
+            <p class="despedida" id="bloque-despedida">Att: <span id="remitente-carta"></span></p>
+        </div>
+        
+        <button id="btn-continuar" class="btn-guia oculto">Ver Álbum Sorpresa ➡️</button>
 
-            <div id="fotos-finales-grid" class="oculto"></div>
-            <div id="galeria-fotos" class="galeria oculto">
-                <h3>Nuestros Momentos Juntos 📸</h3>
-                <div id="heart-collage" class="heart-grid"></div>
+        <!-- MINIJUEGO: LA FLECHA DE CUPIDO -->
+        <div id="juego-cupido" class="oculto" style="margin-top: 25px; padding-top: 15px; border-top: 2px dashed #ffb3cc;">
+            <h3 style="color: #cc0052;">💘 ¡Lanza la flecha de Cupido! 💘</h3>
+            <p>Desliza la flecha hacia la derecha para atinarle al corazón:</p>
+            <div class="pista-juego" style="position: relative; background: #fff5f7; height: 60px; border-radius: 30px; border: 2px solid #ffb3cc; margin: 20px 0; display: flex; align-items: center; padding: 0 10px;">
+                <input type="range" id="slider-flecha" min="0" max="100" value="0" style="width: 80%; cursor: pointer; accent-color: #ff1a53;">
+                <span id="objetivo-corazon" style="font-size: 30px; position: absolute; right: 20px; transition: transform 0.2s;">❤️</span>
             </div>
+        </div>
+
+        <div id="fotos-finales-grid" class="oculto"></div>
+        <div id="galeria-fotos" class="galeria oculto">
+            <h3>Nuestros Momentos Juntos 📸</h3>
+            <div id="heart-collage" class="heart-grid"></div>
         </div>
     </div>
 

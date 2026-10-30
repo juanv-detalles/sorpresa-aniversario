@@ -20,7 +20,6 @@ body {
     text-align: center;
 }
 
-/* Corregido: Quitamos el !important para que JavaScript pueda mostrar los elementos */
 .oculto {
     display: none;
 }

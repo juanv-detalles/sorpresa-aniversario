@@ -7,6 +7,7 @@ const pantallaSorpresa = document.getElementById('pantalla-sorpresa');
 
 let fotosCargadasBase64 = [];
 
+// Manejo seguro de la carga de imágenes
 const inputFotos = document.getElementById('config-fotos');
 if (inputFotos) {
     inputFotos.addEventListener('change', function(e) {
@@ -50,7 +51,12 @@ if (btnGenerar) {
         }
 
         const fechaFinal = `${dia}-${mes}-${anio}`;
-        localStorage.setItem('fotos_sorpresa', JSON.stringify(fotosCargadasBase64));
+        
+        try {
+            localStorage.setItem('fotos_sorpresa', JSON.stringify(fotosCargadasBase64));
+        } catch (error) {
+            console.log("No se pudieron guardar las fotos locales.");
+        }
 
         const payload = { f: fechaFinal, n: nombre };
         const hashConfig = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
@@ -71,6 +77,7 @@ if (btnGenerar) {
     };
 }
 
+// PASO 2: LEER PARÁMETROS DE LA URL
 const parametrosUrl = new URLSearchParams(window.location.search);
 const datosSorpresaCargados = parametrosUrl.get('s');
 let configuracionRecibida = null;
@@ -81,7 +88,7 @@ if (datosSorpresaCargados) {
     try {
         configuracionRecibida = JSON.parse(decodeURIComponent(escape(atob(datosSorpresaCargados))));
     } catch(e) {
-        alert("El enlace compartido no es válido.");
+        console.log("Error al decodificar parámetros.");
     }
 }
 
@@ -119,7 +126,12 @@ if (btnVerificar) {
             const intervaloCorazones = setInterval(lanzarLluviaCorazones, 1500);
             setTimeout(() => clearInterval(intervaloCorazones), 7000);
 
-            let fotosReales = JSON.parse(localStorage.getItem('fotos_sorpresa')) || [];
+            let fotosReales = [];
+            try {
+                fotosReales = JSON.parse(localStorage.getItem('fotos_sorpresa')) || [];
+            } catch (e) {
+                fotosReales = [];
+            }
             
             if (fotosReales.length === 0) {
                 fotosReales = [
@@ -177,12 +189,3 @@ const btnContinuar = document.getElementById('btn-continuar');
 if (btnContinuar) {
     btnContinuar.onclick = function() {
         const juegoCupido = document.getElementById('juego-cupido');
-        if (juegoCupido) juegoCupido.classList.remove('oculto');
-        if (btnContinuar) btnContinuar.classList.add('oculto');
-        if (juegoCupido) juegoCupido.scrollIntoView({ behavior: 'smooth' });
-    };
-}
-
-const sliderFlecha = document.getElementById('slider-flecha');
-if (sliderFlecha) {
-    sliderFlecha.oninput = function() {

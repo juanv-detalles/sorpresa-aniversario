@@ -3,108 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuestra Fecha Especial ❤️</title>
+    <title>Un Regalo de Cupido 💛</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Servidor estable y completo para la lluvia de corazones -->
-    <script src="https://cloudflare.com"></script>
 </head>
 <body>
+    <div class="card" id="tarjetaPrincipal">
+        <!-- VISTA 1: MODO CREADOR -->
+        <div id="vistaCreador">
+            <h1>🏹 Creador de Dedicatorias 🏹</h1>
+            <div class="input-group">
+                <label>Tu Nombre (Att):</label>
+                <input type="text" id="creador" placeholder="Tu nombre">
+            </div>
+            <div class="input-group">
+                <label>¿Para quién es?:</label>
+                <input type="text" id="para" placeholder="Su nombre">
+            </div>
+            <div class="input-group">
+                <label>Fecha de su Aniversario / Especial:</label>
+                <input type="date" id="fechaEspecial">
+            </div>
+            <button id="btnGenerar" onclick="generarEnlace()">✨ Generar Enlace Secreto ✨</button>
+            <div id="contenedorEnlace" class="link-box" style="display: none;">
+                <p>¡Listo! Copia este link y envíaselo:</p>
+                <input type="text" id="inputEnlace" readonly onclick="this.select()">
+                <button onclick="copiarLink()" class="btn-copy">📋 Copiar Link</button>
+            </div>
+        </div>
 
-    <!-- PANTALLA 1: CONFIGURACIÓN (Modo Creador) -->
-    <div id="pantalla-config" class="contenedor">
-        <h2>Configura tu Sorpresa Especial 🛠️</h2>
-        <p>Escribe los datos para tu persona favorita:</p>
+        <!-- VISTA 2: MODO PAREJA (VALIDACIÓN) -->
+        <div id="vistaPareja" style="display: none;">
+            <h1 id="tituloPareja">💝 Tienes un regalo de amor...</h1>
+            <p class="instruccion">Para desbloquear tu dedicatoria, introduce la fecha de su día especial:</p>
+            <div class="input-group">
+                <input type="date" id="fechaValidar">
+            </div>
+            <button id="btnValidar" onclick="validarFechaYMostrar()">🔓 Abrir Regalo 🌻</button>
+        </div>
+
+        <!-- PANTALLA COMPARTIDA: Carta con efecto máquina de escribir -->
+        <div id="pantallaTexto" class="text-box" style="display: none;"></div>
         
-        <label>Fecha de aniversario (Día / Mes / Año):</label>
-        <div class="fecha-custom-grid">
-            <input type="number" id="config-dia" placeholder="DD" min="1" max="31">
-            <select id="config-mes">
-                <option value="01">Enero</option>
-                <option value="02">Febrero</option>
-                <option value="03">Marzo</option>
-                <option value="04">Abril</option>
-                <option value="05">Mayo</option>
-                <option value="06">Junio</option>
-                <option value="07">Julio</option>
-                <option value="08">Agosto</option>
-                <option value="09">Septiembre</option>
-                <option value="10">Octubre</option>
-                <option value="11">Noviembre</option>
-                <option value="12">Diciembre</option>
-            </select>
-            <input type="number" id="config-anio" placeholder="AAAA" min="1900" max="2100">
-        </div>
-
-        <label>Tu Nombre (Aparecerá en el Att:):</label>
-        <input type="text" id="config-nombre" placeholder="Escribe tu nombre aquí...">
-
-        <label>Sube tus Fotos Reales (Selecciona de 1 a 4 fotos de tu galería o PC):</label>
-        <input type="file" id="config-fotos" accept="image/*" multiple style="padding: 10px; border: 2px dashed #ffb3cc; background: #fff5f7;">
-        <div id="vista-previa-imagenes" style="display: flex; gap: 5px; justify-content: center; margin-top: 10px; flex-wrap: wrap;"></div>
-
-        <button id="btn-generar">Generar Sorpresa y Compartir ✨</button>
+        <!-- BOTÓN CONTINUAR: Aparece solo al finalizar el texto -->
+        <button id="btnContinuar" onclick="mostrarSorpresaFinal()" style="display: none; margin-top: 15px;">Siguiente ➡️</button>
     </div>
 
-    <!-- PANTALLA INTERMEDIA: COMPARTIR EL LINK -->
-    <div id="pantalla-compartir" class="contenedor oculto">
-        <h2>¡Tu sorpresa está lista! 🎉</h2>
-        <p>Copia el siguiente enlace y envíaselo a tu pareja por WhatsApp:</p>
-        <button id="btn-copiar-link">Copiar Enlace Romántico 📋</button>
-        <p id="copiado-aviso" class="aviso-exito oculto">¡Enlace copiado al portapapeles!</p>
-    </div>
-
-    <!-- PANTALLA 2: VALIDACIÓN (Para quien recibe la sorpresa) -->
-    <div id="pantalla-validar" class="contenedor oculto">
-        <h2>Tengo una sorpresa para ti... 🎁</h2>
-        <p>Introduce la fecha en la que empezamos a estar juntos:</p>
-        <div class="fecha-custom-grid">
-            <input type="number" id="adivinar-dia" placeholder="DD" min="1" max="31">
-            <select id="adivinar-mes">
-                <option value="01">Enero</option>
-                <option value="02">Febrero</option>
-                <option value="03">Marzo</option>
-                <option value="04">Abril</option>
-                <option value="05">Mayo</option>
-                <option value="06">Junio</option>
-                <option value="07">Julio</option>
-                <option value="08">Agosto</option>
-                <option value="09">Septiembre</option>
-                <option value="10">Octubre</option>
-                <option value="11">Noviembre</option>
-                <option value="12">Diciembre</option>
-            </select>
-            <input type="number" id="adivinar-anio" placeholder="AAAA" min="1900" max="2100">
+    <!-- PANTALLA FINAL: El Corazón Gigante y la Flecha de Cupido -->
+    <div id="pantallaFinal" class="pantalla-final" style="display: none;">
+        <div class="escena-cupido">
+            <div class="flecha-cupido">💘</div>
+            <div class="corazon-gigante"></div>
         </div>
-        <button id="btn-verificar">Verificar Fecha ❤️</button>
-        <p id="error-mensaje" class="error oculto">¡Fecha incorrecta! Inténtalo de nuevo... 🥺</p>
-    </div>
-
-    <!-- PANTALLA 3: LA SORPRESA -->
-    <div id="pantalla-sorpresa" class="oculto">
-        <div class="contenedor">
-            <div class="carta">
-                <div id="texto-carta"></div>
-                <p class="despedida" id="bloque-despedida">Att: <span id="remitente-carta"></span></p>
-            </div>
-            
-            <button id="btn-continuar" class="btn-guia oculto">Ver Álbum Sorpresa ➡️</button>
-
-            <!-- MINIJUEGO: LA FLECHA DE CUPIDO -->
-            <div id="juego-cupido" class="oculto" style="margin-top: 25px; padding-top: 15px; border-top: 2px dashed #ffb3cc;">
-                <h3 style="color: #cc0052;">💘 ¡Lanza la flecha de Cupido! 💘</h3>
-                <p>Desliza la flecha hacia la derecha para atinarle al corazón:</p>
-                <div class="pista-juego" style="position: relative; background: #fff5f7; height: 60px; border-radius: 30px; border: 2px solid #ffb3cc; margin: 20px 0; display: flex; align-items: center; padding: 0 10px;">
-                    <input type="range" id="slider-flecha" min="0" max="100" value="0" style="width: 80%; cursor: pointer; accent-color: #ff1a53;">
-                    <span id="objetivo-corazon" style="font-size: 30px; position: absolute; right: 20px; transition: transform 0.2s;">❤️</span>
-                </div>
-            </div>
-
-            <div id="fotos-finales-grid" class="oculto"></div>
-            <div id="galeria-fotos" class="galeria oculto">
-                <h3>Nuestros Momentos Juntos 📸</h3>
-                <div id="heart-collage" class="heart-grid"></div>
-            </div>
-        </div>
+        <h2 class="texto-final">¡Te Amo! 💝</h2>
     </div>
 
     <script src="script.js"></script>

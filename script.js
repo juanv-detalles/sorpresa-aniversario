@@ -1,65 +1,33 @@
-const mensajePredeterminado = `❤️🌹 ¡PARA LA PERSONA MÁS ESPECIAL DEL MUNDO! 🌹❤️<br><br>✨ ¡Felicidades! Si lograste entrar aquí es porque recordabas con exactitud esa fecha tan nuestra... Esa fecha mágica que marcó un antes y un después definitivo en nuestras vidas. Fue el día exacto en que nuestros caminos se cruzaron, el instante en que todo comenzó y en el que decidimos, con toda la ilusión del universo, empezar a escribir nuestra propia historia de amor de la mano. ✨<br><br>Mirar atrás y recordar ese momento me llena de una alegría inmensa, porque entendí que fue el inicio del viaje más maravilloso, loco y bonito de toda mi vida. 🥹❤️<br><br>Quiero aprovechar esta pequeña gran sorpresa para recordarte lo muchísimo que significas para mí y el lugar tan sangrado que ocupas en mis días. A veces el tiempo avanza muy rápido, pero hoy me detengo para decirte lo que dicta mi corazón: ¡GRACIAS!<br><br>❤️ Gracias por cada sonrisa compartida.<br>❤️ Gracias por cada abrazo sincero en los momentos en que más lo necesitaba.<br>❤️ Gracias por tu paciencia infinita, tu ternura y el hermoso regalo de tu presencia.<br>❤️ Gracias por hacer que mi mundo sea un lugar brillante, feliz y lleno de paz.<br><br>Cada detalle tuyo, cada conversación nocturna y cada segundo a tu lado es un tesoro invaluable que guardo bajo llave en lo más profundo de mi ser. No cambiaría por nada de este planeta absolutamente nada de lo que hemos construido juntos: las risas cómplices, las metas que planeamos en voz alta, las pequeñas locuras y esa hermosa conexión que solo nosotros dos entendemos. Me fascina ver cómo crecemos juntos y cómo nos apoyamos en cada paso que damos.<br><br>Eres mi persona favorita, mi refugio seguro contra todo lo malo, mi paz en medio de la tormenta, mi complemento perfecto y la razón de mis sonrisas más honestas y transparentes. Gracias por ser tú, por no rendirte y por enseñarme lo hermoso que es amar y ser amado sin condiciones. 🧸💞<br><br>Te amo con todas las fuerzas de mi alma, hoy, mañana y para toda la eternidad. ✨🌌`;
+const mensajePredeterminado = `❤️🌹 ¡PARA LA PERSONA MÁS ESPECIAL DEL MUNDO! 🌹❤️<br><br>✨ ¡Felicidades! Si lograste entrar aquí es porque recordabas con exactitud esa fecha tan nuestra... Esa fecha mágica que marcó un antes y un después definitivo en nuestras vidas. Fue el día exacto en que nuestros caminos se cruzaron, el instante en que todo comenzó y en el que decidimos, con toda la ilusión del universo, empezar a escribir nuestra propia historia de amor de la mano. ✨<br><br>Mirar atrás y recordar ese momento me llena de una alegría inmensa, porque entendí que fue el inicio del viaje más maravilloso, loco y bonito de toda mi vida. 🥹❤️<br><br>Quiero aprovechar esta pequeña gran sorpresa para recordarte lo muchísimo que significas para mí y el lugar tan sagrado que ocupas en mi vida. A veces el tiempo avanza muy rápido, pero hoy me detengo para decirte lo que dicta mi corazón: ¡GRACIAS!<br><br>❤️ Gracias por cada sonrisa compartida.<br>❤️ Gracias por cada abrazo sincero en los momentos en que más lo necesitaba.<br>❤️ Gracias por tu paciencia infinita, tu ternura y el hermoso regalo de tu presencia.<br>❤️ Gracias por hacer que mi mundo sea un lugar brillante, feliz y lleno de paz.<br><br>Cada detalle tuyo, cada conversación nocturna y cada segundo a tu lado es un tesoro invaluable que guardo bajo llave en lo más profundo de mi ser. No cambiaría por nada de este planeta absolutamente nada de lo que hemos construido juntos: las risas cómplices, las metas que planeamos en voz alta, las pequeñas locuras y esa hermosa conexión que solo nosotros dos entendemos. Me fascina ver cómo crecemos juntos y cómo nos apoyamos en cada paso que damos.<br><br>Eres mi persona favorita, mi refugio seguro contra todo lo malo, mi paz en medio de la tormenta, mi complemento perfecto y la razón de mis sonrisas más honestas y transparentes. Gracias por ser tú, por no rendirte y por enseñarme lo hermoso que es amar y ser amado sin condiciones. 🧸💞<br><br>Te amo con todas las fuerzas de mi alma, hoy, mañana y para toda la eternidad. ✨🌌`;
 
 const pantallaConfig = document.getElementById('pantalla-config');
 const pantallaCompartir = document.getElementById('pantalla-compartir');
 const pantallaValidar = document.getElementById('pantalla-validar');
 const pantallaSorpresa = document.getElementById('pantalla-sorpresa');
 
-let fotosCargadasBase64 = [];
+let intervaloLluviaInfinita = null;
+let datosConfiguracion = { f: "", n: "", p: "" };
 
-// Manejo seguro y ligero de la carga de imágenes de la galería
-const inputFotos = document.getElementById('config-fotos');
-if (inputFotos) {
-    inputFotos.addEventListener('change', function(e) {
-        const archivos = e.target.files;
-        const vistaPrevia = document.getElementById('vista-previa-imagenes');
-        if (vistaPrevia) vistaPrevia.innerHTML = "";
-        fotosCargadasBase64 = [];
-
-        const cantidad = Math.min(archivos.length, 4);
-        for(let i = 0; i < cantidad; i++) {
-            const lector = new FileReader();
-            lector.onload = function(evento) {
-                fotosCargadasBase64.push(evento.target.result);
-                const miniImg = document.createElement('img');
-                miniImg.src = evento.target.result;
-                miniImg.style.width = "50px";
-                miniImg.style.height = "50px";
-                miniImg.style.objectFit = "cover";
-                miniImg.style.borderRadius = "5px";
-                if (vistaPrevia) vistaPrevia.appendChild(miniImg);
-            }
-            lector.readAsDataURL(archivos[i]);
-        }
-    });
-}
-
-// PASO 1: GENERAR LINK CORTO GARANTIZADO
+// PASO 1: GENERAR LINK ENCRIPTADO (SOPORTE DE AÑO INFINITO)
 const btnGenerar = document.getElementById('btn-generar');
 if (btnGenerar) {
     btnGenerar.onclick = function(e) {
         e.preventDefault();
 
-        const dia = document.getElementById('config-dia').value;
-        const mes = document.getElementById('config-mes').value;
-        const anio = document.getElementById('config-anio').value;
-        const nombre = document.getElementById('config-nombre').value;
+        const dia = document.getElementById('config-dia').value.trim();
+        const mes = document.getElementById('config-mes').value.trim();
+        const anio = document.getElementById('config-anio').value.trim();
+        const nombre = document.getElementById('config-nombre').value.trim();
+        const pareja = document.getElementById('config-pareja').value.trim();
 
-        if (!dia || !mes || !anio || !nombre) {
-            alert("Por favor rellena la fecha completa y tu nombre.");
+        if (!dia || !mes || !anio || !nombre || !pareja) {
+            alert("Por favor rellena la fecha completa, tu nombre y el de tu pareja.");
             return;
         }
 
-        const fechaFinal = `${dia}-${mes}-${anio}`;
+        const fechaFinal = `${parseInt(dia)}-${parseInt(mes)}-${parseInt(anio)}`;
 
-        // Almacenamiento seguro por sesión para evitar cuelgues del navegador
-        try {
-            sessionStorage.setItem('fotos_sorpresa_temp', JSON.stringify(fotosCargadasBase64));
-        } catch (error) {
-            console.log("Error de almacenamiento temporal.");
-        }
-
-        const payload = { f: fechaFinal, n: nombre };
+        const payload = { f: fechaFinal, n: nombre, p: pareja };
         const hashConfig = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
         const linkFinal = `${window.location.origin}${window.location.pathname}?s=${hashConfig}`;
 
@@ -78,79 +46,51 @@ if (btnGenerar) {
     };
 }
 
-// PASO 2: LEER PARÁMETROS DE LA URL
+// PASO 2: COMPROBAR URL AL CARGAR LA PÁGINA
 const parametrosUrl = new URLSearchParams(window.location.search);
 const datosSorpresaCargados = parametrosUrl.get('s');
-let configuracionRecibida = null;
 
 if (datosSorpresaCargados) {
     if (pantallaConfig) pantallaConfig.classList.add('oculto');
     if (pantallaValidar) pantallaValidar.classList.remove('oculto');
     try {
-        configuracionRecibida = JSON.parse(decodeURIComponent(escape(atob(datosSorpresaCargados))));
+        datosConfiguracion = JSON.parse(decodeURIComponent(escape(atob(datosSorpresaCargados))));
+        const tituloPareja = document.getElementById('titulo-pareja');
+        if (tituloPareja) tituloPareja.textContent = `💝 Un regalo de ${datosConfiguracion.n}...`;
     } catch(e) {
-        console.log("Error de decodificación.");
+        console.log("Error de decodificación de parámetros.");
     }
 }
 
-// PASO 3: VALIDACIÓN DE LA FECHA POR LA PAREJA
+// PASO 3: VALIDACIÓN DE FECHA POR LA PAREJA
 const btnVerificar = document.getElementById('btn-verificar');
 if (btnVerificar) {
     btnVerificar.onclick = function() {
-        const dia = document.getElementById('adivinar-dia').value;
-        const mes = document.getElementById('adivinar-mes').value;
-        const anio = document.getElementById('adivinar-anio').value;
-        const fechaIntento = `${dia}-${mes}-${anio}`;
+        const dia = document.getElementById('adivinar-dia').value.trim();
+        const mes = document.getElementById('adivinar-mes').value.trim();
+        const anio = document.getElementById('adivinar-anio').value.trim();
+        
+        if (!dia || !mes || !anio) {
+            alert("Introduce la fecha completa para comprobar.");
+            return;
+        }
 
-        if (!configuracionRecibida) return;
+        const fechaIntento = `${parseInt(dia)}-${parseInt(mes)}-${parseInt(anio)}`;
 
-        if (fechaIntento === configuracionRecibida.f) {
-            const errorMsg = document.getElementById('error-mensaje');
-            if (errorMsg) errorMsg.classList.add('oculto');
+        if (fechaIntento === datosConfiguracion.f) {
             if (pantallaValidar) pantallaValidar.classList.add('oculto');
             if (pantallaSorpresa) pantallaSorpresa.classList.remove('oculto');
 
-            const despedidaContenedor = document.getElementById('bloque-despedida');
-            if (despedidaContenedor) {
-                despedidaContenedor.style.opacity = "0";
-                despedidaContenedor.classList.remove('oculto');
-            }
-
             const remitente = document.getElementById('remitente-carta');
-            if (remitente) remitente.textContent = configuracionRecibida.n;
+            if (remitente) remitente.textContent = datosConfiguracion.n;
+
+            // Iniciamos la lluvia constante de corazones decorativa
+            iniciarLluviaInfinita();
 
             setTimeout(() => {
                 maquinaDeEscribirLetras(mensajePredeterminado, 'texto-carta', 35);
             }, 300);
 
-            lanzarLluviaCorazones();
-            const intervaloCorazones = setInterval(lanzarLluviaCorazones, 1500);
-            setTimeout(() => clearInterval(intervaloCorazones), 7000);
-
-            let fotosReales = [];
-            try {
-                fotosReales = JSON.parse(sessionStorage.getItem('fotos_sorpresa_temp')) || [];
-            } catch (e) {
-                fotosReales = [];
-            }
-            
-            if (fotosReales.length === 0) {
-                fotosReales = [
-                    "https://unsplash.com",
-                    "https://unsplash.com",
-                    "https://unsplash.com",
-                    "https://unsplash.com"
-                ];
-            }
-
-            const gridFinal = document.getElementById('fotos-finales-grid');
-            if (gridFinal) {
-                gridFinal.innerHTML = "";
-                for (let m = 0; m < 9; m++) {
-                    const imgUrl = fotosReales[m % fotosReales.length];
-                    gridFinal.innerHTML += `<img src="${imgUrl}">`;
-                }
-            }
         } else {
             const errorMsg = document.getElementById('error-mensaje');
             if (errorMsg) errorMsg.classList.remove('oculto');
@@ -158,35 +98,98 @@ if (btnVerificar) {
     };
 }
 
+// LÓGICA MÁQUINA DE ESCRIBIR
 function maquinaDeEscribirLetras(texto, elementoId, velocidad) {
     const contenedor = document.getElementById(elementoId);
-    if (!contenedor) return;
-    let i = 0;
+    let progreso = 0;
     contenedor.innerHTML = "";
 
     function escribir() {
-        if (i < texto.length) {
-            if (texto.substr(i, 4) === "<br>") { contenedor.innerHTML += "<br>"; i += 4; }
-            else if (texto.substr(i, 8) === "<br><br>") { contenedor.innerHTML += "<br><br>"; i += 8; }
-            else { contenedor.innerHTML += texto.charAt(i); i++; }
-            
-            const cartaContenedor = document.querySelector('.carta');
-            if (cartaContenedor) cartaContenedor.scrollTop = cartaContenedor.scrollHeight;
+        if (progreso < texto.length) {
+            if (texto.substr(progreso, 4) === "<br>") {
+                contenedor.innerHTML += "<br>";
+                progreso += 4;
+            } else {
+                contenedor.innerHTML += texto.charAt(progreso);
+                progreso++;
+            }
+            contenedor.scrollTop = contenedor.scrollHeight;
             setTimeout(escribir, velocidad);
         } else {
             const despedidaContenedor = document.getElementById('bloque-despedida');
-            if (despedidaContenedor) {
-                despedidaContenedor.style.transition = "opacity 1.5s ease";
-                despedidaContenedor.style.opacity = "1";
-            }
-            const btnContinuar = document.getElementById('btn-continuar');
+            if (despedidaContenedor) despedidaContenedor.classList.remove('oculto');
+            
+            const btnContinuar = document.getElementById('btn-continuar-sorpresa');
             if (btnContinuar) btnContinuar.classList.remove('oculto');
         }
     }
     escribir();
 }
 
-const btnContinuar = document.getElementById('btn-continuar');
-if (btnContinuar) {
-    btnContinuar.onclick = function() {
-        const juegoCupido = document.getElementById('juego-cupido');
+// PASO 4: BOTÓN CONTINUAR - PASAR AL JUEGO DE CUPIDO
+const btnContinuarSorpresa = document.getElementById('btn-continuar-sorpresa');
+if (btnContinuarSorpresa) {
+    btnContinuarSorpresa.onclick = function() {
+        // Pausamos momentáneamente la lluvia de fondo para el minijuego
+        detenerLluviaInfinita();
+        
+        if (pantallaSorpresa) pantallaSorpresa.classList.add('oculto');
+        document.getElementById('tarjeta-principal').classList.add('oculto');
+        
+        const pantallaFinal = document.getElementById('pantalla-final-cupido');
+        if (pantallaFinal) pantallaFinal.classList.remove('oculto');
+    };
+}
+
+// LÓGICA DEL MINIJUEGO: CUANDO LE ATINAS A LA FLECHA
+function atinarCorazon() {
+    // Ocultamos la interfaz del minijuego
+    document.getElementById('juego-cupido').classList.add('oculto');
+    
+    // Seteamos el nombre de la pareja en la revelación final
+    document.getElementById('nombre-pareja-final').textContent = datosConfiguracion.p;
+    
+    // Mostramos la revelación final definitiva
+    document.getElementById('mensaje-revelado-final').classList.remove('oculto');
+    
+    // Reactivamos una lluvia súper densa e infinita para celebrar el acierto
+    iniciarLluviaInfinita();
+}
+
+// SISTEMA DE LLUVIA DE CORAZONES
+function crearCorazonIndividual() {
+    const contenedor = document.getElementById('contenedor-corazones');
+    if (!contenedor) return;
+
+    const corazon = document.createElement('div');
+    corazon.className = 'corazon-flotante';
+    
+    const emojis = ["❤️", "💖", "💘", "💝", "💕"];
+    corazon.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+    
+    corazon.style.left = Math.random() * 100 + "vw";
+    corazon.style.top = "105vh";
+    corazon.style.fontSize = Math.random() * 20 + 12 + "px";
+    
+    corazon.style.setProperty('--desviacion-x', (Math.random() * 80 - 40) + "px");
+    corazon.style.setProperty('--rotacion', (Math.random() * 360) + "deg");
+    
+    const duracion = Math.random() * 3 + 3;
+    corazon.style.animationDuration = duracion + "s";
+
+    contenedor.appendChild(corazon);
+
+    setTimeout(() => { corazon.remove(); }, duracion * 1000);
+}
+
+function iniciarLluviaInfinita() {
+    intervaloLluviaInfinita = setInterval(crearCorazonIndividual, 180);
+}
+
+function detenerLluviaInfinita() {
+    if (intervaloLluviaInfinita) {
+        clearInterval(intervaloLluviaInfinita);
+        const contenedor = document.getElementById('contenedor-corazones');
+        if (contenedor) contenedor.innerHTML = "";
+    }
+}

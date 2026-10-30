@@ -1,5 +1,5 @@
 body {
-    background-color: #fffbeb; /* Amarillo crema */
+    background-color: #fffbeb; /* Amarillo crema de flores amarillas */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
@@ -10,6 +10,7 @@ body {
     position: relative;
 }
 
+/* Contenedor de corazones flotantes de fondo */
 #contenedor-corazones {
     position: absolute;
     top: 0;
@@ -152,7 +153,7 @@ button:active {
 }
 
 /* ==========================================
-   MINIJUEGO: APUNTAR Y ATINAR
+   MINIJUEGO EN GOUT: APUNTAR Y ATINAR
    ========================================== */
 #pantalla-final-cupido {
     text-align: center;
@@ -180,7 +181,7 @@ button:active {
     margin: 0 auto;
 }
 
-/* Corazón del juego moviéndose de lado a lado */
+/* Corazón gigante moviéndose */
 .corazon-gigante-juego {
     position: relative;
     width: 90px;
@@ -209,7 +210,7 @@ button:active {
     transform-origin: 100% 100%;
 }
 
-/* Flecha Interactiva para hacer clic */
+/* Flecha de Cupido Interactiva */
 .flecha-disparar {
     position: absolute;
     font-size: 75px;
@@ -226,7 +227,7 @@ button:active {
 }
 
 /* ==========================================
-   ESCENA FINAL REVELADA
+   PANTALLA FINAL REVELADA ("MY LOVE")
    ========================================== */
 .escena-cupido-final {
     position: relative;
@@ -284,6 +285,7 @@ button:active {
     animation: pulsoTexto 1.5s infinite;
 }
 
+/* Estilo de los corazones flotantes continuos */
 .corazon-flotante {
     position: fixed;
     pointer-events: none;
@@ -291,7 +293,7 @@ button:active {
     animation: subirCorazon linear forwards;
 }
 
-/* Animaciones de CSS */
+/* Animaciones */
 @keyframes moverCorazonJuego {
     0% { transform: translateX(-60px) scale(1); }
     100% { transform: translateX(60px) scale(1.05); }

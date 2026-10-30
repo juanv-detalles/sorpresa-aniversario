@@ -3,58 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Un Regalo de Cupido 💛</title>
+    <title>Un Regalo Eterno </title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="card" id="tarjetaPrincipal">
-        <!-- VISTA 1: MODO CREADOR -->
-        <div id="vistaCreador">
+    <!-- Contenedor para la lluvia constante de corazones -->
+    <div id="contenedor-corazones"></div>
+
+    <div class="card" id="tarjeta-principal">
+        <!-- PASO 1: CONFIGURACIÓN POR EL CREADOR -->
+        <div id="pantalla-config">
             <h1>🏹 Creador de Dedicatorias 🏹</h1>
             <div class="input-group">
                 <label>Tu Nombre (Att):</label>
-                <input type="text" id="creador" placeholder="Tu nombre">
+                <input type="text" id="config-nombre" placeholder="Tu nombre">
             </div>
             <div class="input-group">
-                <label>¿Para quién es?:</label>
-                <input type="text" id="para" placeholder="Su nombre">
+                <label>Nombre de tu Pareja (Mi Amor):</label>
+                <input type="text" id="config-pareja" placeholder="Nombre de tu pareja">
             </div>
             <div class="input-group">
-                <label>Fecha de su Aniversario / Especial:</label>
-                <input type="date" id="fechaEspecial">
+                <label>Fecha Especial (Día / Mes / Año Eterno):</label>
+                <div class="fecha-inputs">
+                    <input type="number" id="config-dia" placeholder="DD" min="1" max="31">
+                    <input type="number" id="config-mes" placeholder="MM" min="1" max="12">
+                    <input type="number" id="config-anio" placeholder="AAAA" min="1">
+                </div>
             </div>
-            <button id="btnGenerar" onclick="generarEnlace()">✨ Generar Enlace Secreto ✨</button>
-            <div id="contenedorEnlace" class="link-box" style="display: none;">
-                <p>¡Listo! Copia este link y envíaselo:</p>
-                <input type="text" id="inputEnlace" readonly onclick="this.select()">
-                <button onclick="copiarLink()" class="btn-copy">📋 Copiar Link</button>
-            </div>
+            <button id="btn-generar">✨ Generar Enlace Secreto ✨</button>
         </div>
 
-        <!-- VISTA 2: MODO PAREJA (VALIDACIÓN) -->
-        <div id="vistaPareja" style="display: none;">
-            <h1 id="tituloPareja">💝 Tienes un regalo de amor...</h1>
+        <!-- PASO 1.5: PANTALLA PARA COMPARTIR EL LINK -->
+        <div id="pantalla-compartir" class="oculto">
+            <h1>💘 ¡Enlace Creado! 💘</h1>
+            <p class="instruccion">Copia este enlace único y envíaselo a tu pareja para que intente abrir su regalo:</p>
+            <button id="btn-copiar-link">📋 Copiar Link Secreto</button>
+            <p id="copiado-aviso" class="oculto aviso-exito">¡Enlace copiado al portapapeles! 📲</p>
+        </div>
+
+        <!-- PASO 2: VALIDACIÓN POR PARTE DE LA PAREJA -->
+        <div id="pantalla-validar" class="oculto">
+            <h1 id="titulo-pareja">💝 Tienes un regalo de amor...</h1>
             <p class="instruccion">Para desbloquear tu dedicatoria, introduce la fecha de su día especial:</p>
-            <div class="input-group">
-                <input type="date" id="fechaValidar">
+            <div class="fecha-inputs">
+                <input type="number" id="adivinar-dia" placeholder="DD" min="1" max="31">
+                <input type="number" id="adivinar-mes" placeholder="MM" min="1" max="12">
+                <input type="number" id="adivinar-anio" placeholder="AAAA" min="1">
             </div>
-            <button id="btnValidar" onclick="validarFechaYMostrar()">🔓 Abrir Regalo 🌻</button>
+            <button id="btn-verificar">🔓 Abrir Regalo 🌻</button>
+            <p id="error-mensaje" class="oculto aviso-error">❌ Esa no es nuestra fecha especial... ¡Inténtalo otra vez! 🤔</p>
         </div>
 
-        <!-- PANTALLA COMPARTIDA: Carta con efecto máquina de escribir -->
-        <div id="pantallaTexto" class="text-box" style="display: none;"></div>
-        
-        <!-- BOTÓN CONTINUAR: Aparece solo al finalizar el texto -->
-        <button id="btnContinuar" onclick="mostrarSorpresaFinal()" style="display: none; margin-top: 15px;">Siguiente ➡️</button>
+        <!-- PASO 3: LA CARTA (EFECTO MÁQUINA DE ESCRIBIR) -->
+        <div id="pantalla-sorpresa" class="oculto">
+            <div id="texto-carta" class="text-box"></div>
+            <div id="bloque-despedida" class="oculto">
+                <p class="firma-carta">— Con infinito amor, <span id="remitente-carta"></span> ❤️</p>
+            </div>
+            <button id="btn-continuar-sorpresa" class="oculto btn-siguiente">Continuar ➡️</button>
+        </div>
     </div>
 
-    <!-- PANTALLA FINAL: El Corazón Gigante y la Flecha de Cupido -->
-    <div id="pantallaFinal" class="pantalla-final" style="display: none;">
-        <div class="escena-cupido">
-            <div class="flecha-cupido">💘</div>
-            <div class="corazon-gigante"></div>
+    <!-- PASO 4: JUEGO INTERACTIVO Y PANTALLA FINAL -->
+    <div id="pantalla-final-cupido" class="oculto">
+        <!-- Contenedor del Minijuego -->
+        <div id="juego-cupido">
+            <p class="instruccion-juego">🏹 ¡Dale clic a la flecha de Cupido para dar en el blanco! 🏹</p>
+            <div class="escena-juego">
+                <div class="corazon-gigante-juego"></div>
+                <div class="flecha-disparar" id="flecha-click" onclick="atinarCorazon()">💘</div>
+            </div>
         </div>
-        <h2 class="texto-final">¡Te Amo! 💝</h2>
+
+        <!-- Mensaje Revelado (Oculto al inicio del juego) -->
+        <div id="mensaje-revelado-final" class="oculto">
+            <div class="escena-cupido-final">
+                <div class="flecha-cupido-clavada">💘</div>
+                <div class="corazon-gigante-final"></div>
+            </div>
+            <h1 class="texto-final">MY LOVE <br><span id="nombre-pareja-final"></span> ❤️</h1>
+        </div>
     </div>
 
     <script src="script.js"></script>

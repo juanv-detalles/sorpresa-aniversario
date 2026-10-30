@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nuestra Fecha Especial ❤️</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Servidor estable y completo para la lluvia de corazones -->
+    <!-- Servidor estable para la lluvia de corazones -->
     <script src="https://cloudflare.com"></script>
 </head>
 <body>
@@ -38,11 +38,9 @@
         <label>Tu Nombre (Aparecerá en el Att:):</label>
         <input type="text" id="config-nombre" placeholder="Escribe tu nombre aquí...">
 
-        <label>Links de tus Fotos Reales (Pega enlaces de internet, ej. Postimages):</label>
-        <input type="url" id="foto-url-1" placeholder="Link de la Foto 1..." style="margin-bottom: 5px;">
-        <input type="url" id="foto-url-2" placeholder="Link de la Foto 2..." style="margin-bottom: 5px;">
-        <input type="url" id="foto-url-3" placeholder="Link de la Foto 3..." style="margin-bottom: 5px;">
-        <input type="url" id="foto-url-4" placeholder="Link de la Foto 4...">
+        <label>Sube tus Fotos Reales (Selecciona de 1 a 4 fotos de tu galería o PC):</label>
+        <input type="file" id="config-fotos" accept="image/*" multiple style="padding: 10px; border: 2px dashed #ffb3cc; background: #fff5f7;">
+        <div id="vista-previa-imagenes" style="display: flex; gap: 5px; justify-content: center; margin-top: 10px; flex-wrap: wrap;"></div>
 
         <button id="btn-generar">Generar Sorpresa y Compartir ✨</button>
     </div>

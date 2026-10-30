@@ -12,7 +12,7 @@ if (inputFotos) {
     inputFotos.addEventListener('change', function(e) {
         const archivos = e.target.files;
         const vistaPrevia = document.getElementById('vista-previa-imagenes');
-        vistaPrevia.innerHTML = "";
+        if (vistaPrevia) vistaPrevia.innerHTML = "";
         fotosCargadasBase64 = [];
 
         const cantidad = Math.min(archivos.length, 4);
@@ -26,7 +26,7 @@ if (inputFotos) {
                 miniImg.style.height = "50px";
                 miniImg.style.objectFit = "cover";
                 miniImg.style.borderRadius = "5px";
-                vistaPrevia.appendChild(miniImg);
+                if (vistaPrevia) vistaPrevia.appendChild(miniImg);
             }
             lector.readAsDataURL(archivos[i]);
         }
@@ -133,7 +133,6 @@ if (btnVerificar) {
             const gridFinal = document.getElementById('fotos-finales-grid');
             if (gridFinal) {
                 gridFinal.innerHTML = "";
-                // CORREGIDO: Bucle for limpio y sin variables colisionadas
                 for (let m = 0; m < 9; m++) {
                     const imgUrl = fotosReales[m % fotosReales.length];
                     gridFinal.innerHTML += `<img src="${imgUrl}">`;
@@ -179,10 +178,11 @@ if (btnContinuar) {
     btnContinuar.onclick = function() {
         const juegoCupido = document.getElementById('juego-cupido');
         if (juegoCupido) juegoCupido.classList.remove('oculto');
-        btnContinuar.classList.add('oculto');
-        juegoCupido.scrollIntoView({ behavior: 'smooth' });
+        if (btnContinuar) btnContinuar.classList.add('oculto');
+        if (juegoCupido) juegoCupido.scrollIntoView({ behavior: 'smooth' });
     };
 }
 
 const sliderFlecha = document.getElementById('slider-flecha');
 if (sliderFlecha) {
+    sliderFlecha.oninput = function() {

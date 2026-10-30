@@ -8,7 +8,7 @@ const pantallaSorpresa = document.getElementById('pantalla-sorpresa');
 let intervaloLluviaInfinita = null;
 let datosConfiguracion = { f: "", n: "", p: "" };
 
-// PASO 1: GENERAR LINK ENCRIPTADO (SOPORTE DE AÑO INFINITO)
+// PASO 1: GENERAR LINK ENCRIPTADO (CON ELIMINACIÓN DE LÍMITES EN AÑOS)
 const btnGenerar = document.getElementById('btn-generar');
 if (btnGenerar) {
     btnGenerar.onclick = function(e) {
@@ -21,10 +21,11 @@ if (btnGenerar) {
         const pareja = document.getElementById('config-pareja').value.trim();
 
         if (!dia || !mes || !anio || !nombre || !pareja) {
-            alert("Por favor rellena la fecha completa, tu nombre y el de tu pareja.");
+            alert("Por favor rellena la fecha completa, tu nombre (Att) y el de tu pareja.");
             return;
         }
 
+        // Formato seguro para cualquier año infinito
         const fechaFinal = `${parseInt(dia)}-${parseInt(mes)}-${parseInt(anio)}`;
 
         const payload = { f: fechaFinal, n: nombre, p: pareja };
@@ -46,7 +47,7 @@ if (btnGenerar) {
     };
 }
 
-// PASO 2: COMPROBAR URL AL CARGAR LA PÁGINA
+// PASO 2: LEER PARÁMETROS EN GOUT DESDE LA URL
 const parametrosUrl = new URLSearchParams(window.location.search);
 const datosSorpresaCargados = parametrosUrl.get('s');
 
@@ -58,7 +59,7 @@ if (datosSorpresaCargados) {
         const tituloPareja = document.getElementById('titulo-pareja');
         if (tituloPareja) tituloPareja.textContent = `💝 Un regalo de ${datosConfiguracion.n}...`;
     } catch(e) {
-        console.log("Error de decodificación de parámetros.");
+        console.log("Error de decodificación.");
     }
 }
 
@@ -84,7 +85,7 @@ if (btnVerificar) {
             const remitente = document.getElementById('remitente-carta');
             if (remitente) remitente.textContent = datosConfiguracion.n;
 
-            // Iniciamos la lluvia constante de corazones decorativa
+            // Iniciamos la lluvia constante e interactiva de corazones
             iniciarLluviaInfinita();
 
             setTimeout(() => {
@@ -98,10 +99,11 @@ if (btnVerificar) {
     };
 }
 
-// LÓGICA MÁQUINA DE ESCRIBIR
+// EFECTO MÁQUINA DE ESCRIBIR DE LAS FLORES AMARILLAS 🌼
 function maquinaDeEscribirLetras(texto, elementoId, velocidad) {
     const contenedor = document.getElementById(elementoId);
     let progreso = 0;
+    if (!contenedor) return;
     contenedor.innerHTML = "";
 
     function escribir() {
@@ -126,37 +128,35 @@ function maquinaDeEscribirLetras(texto, elementoId, velocidad) {
     escribir();
 }
 
-// PASO 4: BOTÓN CONTINUAR - PASAR AL JUEGO DE CUPIDO
+// PASO 4: ENTRAR AL MINIJUEGO DE LA FLECHA
 const btnContinuarSorpresa = document.getElementById('btn-continuar-sorpresa');
 if (btnContinuarSorpresa) {
     btnContinuarSorpresa.onclick = function() {
-        // Pausamos momentáneamente la lluvia de fondo para el minijuego
-        detenerLluviaInfinita();
+        detenerLluviaInfinita(); // Pausa la lluvia para enfocar la puntería
         
         if (pantallaSorpresa) pantallaSorpresa.classList.add('oculto');
-        document.getElementById('tarjeta-principal').classList.add('oculto');
+        const tarjeta = document.getElementById('tarjeta-principal');
+        if (tarjeta) tarjeta.classList.add('oculto');
         
         const pantallaFinal = document.getElementById('pantalla-final-cupido');
         if (pantallaFinal) pantallaFinal.classList.remove('oculto');
     };
 }
 
-// LÓGICA DEL MINIJUEGO: CUANDO LE ATINAS A LA FLECHA
+// MINIJUEGO INTERACTIVO: BLANCO COMPLETADO
 function atinarCorazon() {
-    // Ocultamos la interfaz del minijuego
     document.getElementById('juego-cupido').classList.add('oculto');
     
-    // Seteamos el nombre de la pareja en la revelación final
-    document.getElementById('nombre-pareja-final').textContent = datosConfiguracion.p;
+    const txtPareja = document.getElementById('nombre-pareja-final');
+    if (txtPareja) txtPareja.textContent = datosConfiguracion.p;
     
-    // Mostramos la revelación final definitiva
     document.getElementById('mensaje-revelado-final').classList.remove('oculto');
     
-    // Reactivamos una lluvia súper densa e infinita para celebrar el acierto
+    // Reactiva una lluvia masiva e interminable para celebrar
     iniciarLluviaInfinita();
 }
 
-// SISTEMA DE LLUVIA DE CORAZONES
+// SISTEMA DE LLUVIA DINÁMICA DE CORAZONES ELEGANTE
 function crearCorazonIndividual() {
     const contenedor = document.getElementById('contenedor-corazones');
     if (!contenedor) return;
@@ -183,12 +183,15 @@ function crearCorazonIndividual() {
 }
 
 function iniciarLluviaInfinita() {
-    intervaloLluviaInfinita = setInterval(crearCorazonIndividual, 180);
+    if (!intervaloLluviaInfinita) {
+        intervaloLluviaInfinita = setInterval(crearCorazonIndividual, 180);
+    }
 }
 
 function detenerLluviaInfinita() {
     if (intervaloLluviaInfinita) {
         clearInterval(intervaloLluviaInfinita);
+        intervaloLluviaInfinita = null;
         const contenedor = document.getElementById('contenedor-corazones');
         if (contenedor) contenedor.innerHTML = "";
     }

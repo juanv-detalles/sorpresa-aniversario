@@ -7,6 +7,17 @@ body {
     height: 100vh;
     margin: 0;
     overflow: hidden;
+    position: relative;
+}
+
+#contenedor-corazones {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .card {
@@ -14,12 +25,14 @@ body {
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 4px 15px rgba(180, 83, 9, 0.1);
-    width: 100%;
-    max-width: 420px;
+    width: 90%;
+    max-width: 440px;
     text-align: center;
     border: 1px solid #fef3c7;
     box-sizing: border-box;
-    transition: all 0.5s ease;
+    z-index: 10;
+    max-height: 85vh;
+    overflow-y: auto;
 }
 
 h1 {
@@ -32,10 +45,11 @@ h1 {
     color: #78350f;
     font-size: 14px;
     margin-bottom: 20px;
+    line-height: 1.4;
 }
 
 .input-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     text-align: left;
 }
 
@@ -43,19 +57,29 @@ label {
     display: block;
     color: #78350f;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     font-size: 14px;
 }
 
 input {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     box-sizing: border-box;
     border: 1px solid #fcd34d;
     border-radius: 8px;
     font-size: 16px;
     text-align: center;
     outline: none;
+}
+
+.fecha-inputs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.fecha-inputs input {
+    flex: 1;
 }
 
 button {
@@ -80,128 +104,222 @@ button:active {
     transform: scale(0.98);
 }
 
-.link-box {
-    margin-top: 20px;
-    background: #fef3c7;
-    padding: 15px;
-    border-radius: 8px;
-    border: 1px dashed #d97706;
+.oculto {
+    display: none !important;
 }
 
-.link-box p {
-    margin: 0 0 10px 0;
-    color: #78350f;
-    font-size: 13px;
+.aviso-exito {
+    color: #059669;
     font-weight: bold;
+    font-size: 14px;
+    margin-top: 10px;
 }
 
-.btn-copy {
-    background-color: #d97706;
-    color: white;
+.aviso-error {
+    color: #dc2626;
+    font-weight: bold;
     font-size: 14px;
-    padding: 8px;
+    margin-top: 10px;
 }
 
 .text-box {
-    margin-top: 20px;
     background-color: #ffffff;
     border: 2px dashed #b45309;
     border-radius: 8px;
     padding: 20px;
-    min-height: 180px;
     text-align: left;
     color: #b45309;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.6;
     font-family: 'Courier New', Courier, monospace;
     white-space: pre-wrap;
+    max-height: 50vh;
+    overflow-y: auto;
+}
+
+.firma-carta {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 16px;
+    color: #78350f;
+    font-weight: bold;
+    margin-top: 15px;
+    text-align: right;
+}
+
+.btn-siguiente {
+    background-color: #ff4d6d;
+    color: white;
 }
 
 /* ==========================================
-   ESTILOS DE LA SORPRESA FINAL
+   MINIJUEGO: APUNTAR Y ATINAR
    ========================================== */
-.pantalla-final {
+#pantalla-final-cupido {
     text-align: center;
+    z-index: 10;
+}
+
+.instruccion-juego {
+    color: #b45309;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    background: #ffffff;
+    padding: 10px 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.escena-juego {
+    position: relative;
+    width: 300px;
+    height: 300px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    animation: fadeIn 1s ease forwards;
+    margin: 0 auto;
 }
 
-.escena-cupido {
+/* Corazón del juego moviéndose de lado a lado */
+.corazon-gigante-juego {
     position: relative;
-    width: 200px;
-    height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 90px;
+    height: 80px;
+    background-color: #ff758f;
+    animation: moverCorazonJuego 2s infinite alternate ease-in-out;
 }
 
-/* Corazón hecho puramente en CSS */
-.corazon-gigante {
-    position: relative;
-    width: 100px;
-    height: 90px;
-    background-color: #ff4d6d;
-    animation: latido 0.8s infinite alternate;
-}
-
-.corazon-gigante:before,
-.corazon-gigante:after {
+.corazon-gigante-juego:before,
+.corazon-gigante-juego:after {
     position: absolute;
     content: "";
-    left: 50px;
+    left: 45px;
     top: 0;
-    width: 50px;
-    height: 80px;
-    background-color: #ff4d6d;
-    border-radius: 50px 50px 0 0;
+    width: 45px;
+    height: 70px;
+    background-color: #ff758f;
+    border-radius: 45px 45px 0 0;
     transform: rotate(-45deg);
     transform-origin: 0 100%;
 }
 
-.corazon-gigante:after {
+.corazon-gigante-juego:after {
     left: 0;
     transform: rotate(45deg);
     transform-origin: 100% 100%;
 }
 
-/* Flecha de Cupido cruzando el corazón */
-.flecha-cupido {
+/* Flecha Interactiva para hacer clic */
+.flecha-disparar {
     position: absolute;
-    font-size: 80px;
-    z-index: 10;
+    font-size: 75px;
+    cursor: pointer;
+    z-index: 20;
+    bottom: 20px;
+    left: 20px;
+    animation: flotarFlechaJuego 1s infinite alternate ease-in-out;
+    transition: transform 0.1s;
+}
+
+.flecha-disparar:hover {
+    transform: scale(1.15) rotate(-5deg);
+}
+
+/* ==========================================
+   ESCENA FINAL REVELADA
+   ========================================== */
+.escena-cupido-final {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    animation: aparecerSuave 0.6s ease forwards;
+}
+
+.corazon-gigante-final {
+    position: relative;
+    width: 110px;
+    height: 100px;
+    background-color: #ff4d6d;
+    animation: latir 0.6s infinite alternate ease-in-out;
+}
+
+.corazon-gigante-final:before,
+.corazon-gigante-final:after {
+    position: absolute;
+    content: "";
+    left: 55px;
+    top: 0;
+    width: 55px;
+    height: 90px;
+    background-color: #ff4d6d;
+    border-radius: 55px 55px 0 0;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+}
+
+.corazon-gigante-final:after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+}
+
+.flecha-cupido-clavada {
+    position: absolute;
+    font-size: 100px;
+    z-index: 15;
     transform: rotate(-15deg);
-    animation: flotar 2s ease-in-out infinite;
 }
 
 .texto-final {
     color: #ff4d6d;
     font-size: 42px;
     font-weight: 900;
-    margin-top: 30px;
+    margin-top: 25px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    line-height: 1.2;
     animation: pulsoTexto 1.5s infinite;
 }
 
-/* Animaciones */
-@keyframes latido {
+.corazon-flotante {
+    position: fixed;
+    pointer-events: none;
+    z-index: 2;
+    animation: subirCorazon linear forwards;
+}
+
+/* Animaciones de CSS */
+@keyframes moverCorazonJuego {
+    0% { transform: translateX(-60px) scale(1); }
+    100% { transform: translateX(60px) scale(1.05); }
+}
+
+@keyframes flotarFlechaJuego {
+    0% { transform: translate(0, 0) rotate(-10deg); }
+    100% { transform: translate(10px, -10px) rotate(-20deg); }
+}
+
+@keyframes latir {
     0% { transform: scale(1); }
     100% { transform: scale(1.25); }
 }
 
-@keyframes flotar {
-    0%, 100% { transform: translate(0, 0) rotate(-15deg); }
-    50% { transform: translate(-5px, -10px) rotate(-10deg); }
-}
-
 @keyframes pulsoTexto {
     0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+    50% { transform: scale(1.04); }
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+@keyframes aparecerSuave {
+    from { opacity: 0; transform: scale(0.7); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes subirCorazon {
+    0% { transform: translateY(0) translateX(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.7; }
+    90% { opacity: 0.4; }
+    100% { transform: translateY(-115vh) translateX(var(--desviacion-x)) rotate(var(--rotacion)); opacity: 0; }
 }
